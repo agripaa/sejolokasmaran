@@ -10,7 +10,11 @@ require('dotenv').config();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ 
+    origin: "http://127.0.0.1:5500",
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
