@@ -20,40 +20,46 @@ module.exports = {
     },
 
     createContent: async function (req, res) {
-        const { news_id } = req.params;
+        const { news_id } = req.params; 
         const { paragraph, position } = req.body;
-
+    
         try {
+            console.log(`Received request for news_id ${news_id} with data:`, { paragraph, position });
+    
             // Check if the news exists
             const news = await News.findOne({ where: { id: news_id } });
             if (!news) {
+                console.error(`News with ID ${news_id} not found.`);
                 return res.status(404).json({ status: 404, msg: 'News not found.' });
             }
-
+    
             // Validate required fields
             if (!paragraph || !position) {
+                console.error('Invalid data:', { paragraph, position });
                 return res.status(400).json({ status: 400, msg: 'Paragraph and position are required.' });
             }
-
-            // Check if the position already exists for this news
+    
+            // Check for duplicate positions
             const existingContent = await NewsContent.findOne({ where: { news_id, position } });
             if (existingContent) {
-                return res.status(400).json({ 
-                    status: 400, 
-                    msg: `Position ${position} already exists for this news. Please use a different position.` 
+                console.error(`Position ${position} already exists for news ID ${news_id}.`);
+                return res.status(400).json({
+                    status: 400,
+                    msg: `Position ${position} already exists for this news. Please use a different position.`,
                 });
             }
-
-            // Create the news content
+    
+            // Insert the content
             const content = await NewsContent.create({ news_id, paragraph, position });
-
+            console.log(`Content created successfully:`, content);
+    
             res.status(201).json({
                 status: 201,
                 msg: 'News content created successfully.',
                 result: content,
             });
         } catch (error) {
-            console.error(error);
+            console.error('Error creating news content:', error);
             res.status(500).json({ error: 'Error creating news content', details: error });
         }
     },

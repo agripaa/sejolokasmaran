@@ -1,4 +1,3 @@
-const { where } = require('sequelize');
 const Author = require('../models/Author');
 const News = require('../models/News');
 const NewsContent = require('../models/NewsContent');
@@ -43,6 +42,10 @@ module.exports = {
 
     createNews: async function (req, res) {
         const { title, sub_title, category, release, author_id } = req.body;
+
+        if (!author_id) {
+            return res.status(400).json({ status: 400, msg: "Author ID is required." });
+        }
 
         try {
             const author = await Author.findOne({where: {id: author_id}});

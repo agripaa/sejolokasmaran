@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trimester List</title>
+  <link rel="stylesheet" href="/public/assets/css/style.css">
+</head>
+<body>
+  <div id="sidebar-container"></div> 
+  <div class="content">
+    <div class="header-list">
+      <h1>Trimester</h1>
+      <button id="uploadTrimesterBtn" class="add-list">Upload Trimester</button>
+    </div>
+    <table id="journal-table" class="journal-table">
+      <thead>
+        <tr>
+          <th>Trimester</th>
+          <th>Deskripsi</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data trimester akan dimuat secara dinamis -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal untuk Upload Trimester -->
+  <div id="uploadTrimesterModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Upload Trimester</h2>
+      <form id="uploadTrimesterForm">
+        <label for="cat_trimester">Category Trimester:</label>
+        <input type="text" id="cat_trimester" name="cat_trimester" required>
+        
+        <label for="desc">Deskripsi:</label>
+        <textarea id="desc" name="desc" required></textarea>
+        
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/public/assets/js/sidebar.js"></script>
+  <script src="/public/assets/js/trimester-jurnal.js"></script>
+</body>
+</html>

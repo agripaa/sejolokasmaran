@@ -4,7 +4,9 @@ const PregnancyJournal = require('../models/PregnancyJournal');
 module.exports = {
     getAllListJournal: async function (req, res) {
         try {
-            const listJournal = await ListJournal.findAll();
+            const listJournal = await ListJournal.findAll({
+                include: [PregnancyJournal]
+            });
             if (listJournal.length === 0) {
                 return res.status(404).json({ status: 404, msg: "No List Journals found." });
             }
@@ -33,7 +35,7 @@ module.exports = {
         const { pregnancy_journal_id } = req.params;
 
         try {
-            const listJournal = await ListJournal.findAll({where: { pregnancy_journal_id }});
+            const listJournal = await ListJournal.findAll({where: { pregnancy_journal_id}});
             if (listJournal.length === 0) {
                 return res.status(404).json({ status: 404, msg: "List Journals by pregnancy id Not found." });
             }

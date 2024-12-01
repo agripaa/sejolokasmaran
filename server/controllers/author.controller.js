@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const Author = require('../models/Author');
 const path = require('path');
 
@@ -13,6 +14,32 @@ module.exports = {
             res.status(500).json({ error: 'Error fetching authors', details: error });
         }
     },
+
+    searchAuthors: async function (req, res) {
+        const searchQuery = req.query.search;
+    
+        if (!searchQuery) {
+          return res.status(400).json({ msg: 'Search query is required' });
+        }
+    
+        try {
+          const authors = await Author.findAll({
+            where: {
+              name: { [Op.like]: `%${searchQuery}%` }, 
+            },
+            attributes: ['id', 'name', 'position'], 
+          });
+    
+          if (authors.length === 0) {
+            return res.status(404).json({ msg: 'No authors found' });
+          }
+    
+          res.status(200).json({status: 200, result: authors});
+        } catch (error) {
+          console.error('Error fetching authors:', error);
+          res.status(500).json({ msg: 'Internal server error' });
+        }
+      },
 
     getAuthorById: async function (req, res) {
         const { id } = req.params;

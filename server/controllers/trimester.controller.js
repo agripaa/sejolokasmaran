@@ -13,13 +13,13 @@ module.exports = {
         }
     },
     createTrimester: async function(req, res){
-        const { cat_trimester } = req.body;
+        const { cat_trimester, desc } = req.body;
 
         if(!cat_trimester) 
             return res.status(400).json({status: 400, msg: "This field cannot be null"}); 
 
         try {
-            await Trimester.create({cat_trimester});
+            await Trimester.create({cat_trimester, desc});
             res.status(201).json({status: 200, msg: "Trimester created successfully!"});
         } catch (error) {
             console.log(error);
@@ -28,7 +28,7 @@ module.exports = {
     },
     updateTrimester: async function(req, res) {
         const { id } = req.params; 
-        const { cat_trimester } = req.body;
+        const { cat_trimester, desc } = req.body;
 
         if(!cat_trimester) 
             return res.status(400).json({status: 400, msg: "This field cannot be null"}); 
@@ -37,7 +37,7 @@ module.exports = {
             const trimester = await Trimester.findOne({where: {id}});
             if(!trimester) return res.status(404).json({status: 200, msg: "trimester is not found!"});
 
-            await Trimester.update({cat_trimester}, {where: {id: trimester.id}});
+            await Trimester.update({cat_trimester, desc}, {where: {id: trimester.id}});
             res.status(200).json({status: 200, msg: "Trimester updated successfully!"});
         } catch (error) {
             console.log(error);

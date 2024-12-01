@@ -11,7 +11,9 @@ const db = new Sequelize(
     config['development']['password'],
     {
         dialect: config['development']['dialect'] || mysql2,
-        port: config['development']['port']
+        port: config['development']['port'],
+        host: config['development']['host'],
+        logging: false
     }
 );
 

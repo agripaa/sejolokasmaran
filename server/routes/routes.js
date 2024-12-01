@@ -19,6 +19,7 @@ const likeRoutes = require('./like.route');
 const newsRoutes = require('./news.route');
 const authorRoutes = require('./author.route');
 const newsContentRoutes = require('./newsContent.route');
+const classYogaRoutes = require('./classYoga.route');
 
 const router = express.Router();
 
@@ -50,5 +51,6 @@ router.use('/like', likeRoutes);
 router.use('/news', newsRoutes);
 router.use('/author', authorRoutes);
 router.use('/news_content', newsContentRoutes);
+router.use('/class_yoga', classYogaRoutes);
 
 module.exports = router;

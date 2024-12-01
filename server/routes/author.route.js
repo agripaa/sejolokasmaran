@@ -6,6 +6,7 @@ const uploadImage = require('../middleware/uploadImage.middleware');
 const router = express.Router();
 
 router.get('/', verifyToken, authorController.getAllAuthors);
+router.get('/search', verifyToken, authorController.searchAuthors);
 router.get('/:id', verifyToken, authorController.getAuthorById);
 router.post('/', verifyToken, uploadImage, authorController.createAuthor);
 router.patch('/:id', verifyToken, uploadImage, authorController.updateAuthor);

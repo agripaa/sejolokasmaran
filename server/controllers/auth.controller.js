@@ -5,6 +5,7 @@ const User = require('../models/User');
 const Roles = require('../models/Roles');
 const OtpCode = require('../models/OtpCode');
 const RelationType = require('../models/RelationType');
+const { use } = require('../routes/auth.route');
 require('dotenv').config();
 
 module.exports = {
@@ -99,21 +100,26 @@ module.exports = {
 
         try {
             const user = await User.findOne({ where: { email } });
+            const role = await Roles.findOne({ where: { id: user.role_id }});
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
+            if (!role) {
+                return res.status(404).json({ error: 'Role not found' });
+            }
+
             const otpExist = await OtpCode.findOne({where: {userId: user['id']}})
             if(otpExist) return res.status(401).json({status: 401, msg: "user must be verify!"})
-
+            
             const isMatch = await bcrypt.compare(password, user.password);
 
             if (!isMatch) {
                 return res.status(401).json({ error: 'Invalid credentials' });
             }
             
-            const token = jwt.sign({ id: user.id, role_id: user.role_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ id: user.id, role: role.role_name }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
             res.status(200).json({ message: 'Login successful', token });
         } catch (error) {

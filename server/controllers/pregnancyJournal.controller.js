@@ -16,23 +16,38 @@ module.exports = {
         }
     },
 
+    getPregnancyById: async function(req, res) {
+        const { id } = req.params
+        try {
+            const pregnancy_journal = await PregnancyJournal.findOne({
+                where: {id},
+                include: [Trimester]
+            });
+            if(!pregnancy_journal) return res.status(404).json({status: 404, msg: "Pregnancy Journal is not defined!"});
+
+            res.status(200).json({status: 200, result: pregnancy_journal});
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ error: 'Error Pregnancy Journal', details: error });
+        }
+    },
+
     createPregnancy: async function(req, res) {
-        const { category_jurnal, desc, trimester_id } = req.body;
+        const { category_jurnal, trimester_id } = req.body;
 
         try {
-            if(!category_jurnal || !desc || !trimester_id) 
+            if(!category_jurnal || !trimester_id) 
                 return res.status(400).json({status: 400, msg: "This field cannot be null"});
 
             const trimester = await Trimester.findOne({where: {id: trimester_id}});
             if(!trimester) return res.status(404).json({status: 404, msg: "Trimester is not defined!"});
 
-            await PregnancyJournal.create({
+            const pregnancyJournalNew = await PregnancyJournal.create({
                 category_jurnal,
-                desc, 
                 trimester_id
             });
 
-            res.status(201).json({status: 201, msg: "pregnancy journal created!"});
+            res.status(201).json({status: 201, msg: "pregnancy journal created!", result: pregnancyJournalNew});
         } catch (error) {
             console.log(error);
             res.status(500).json({ error: 'Error Pregnancy Journal', details: error });
@@ -40,7 +55,7 @@ module.exports = {
     },
     updatePregnancy: async function(req, res) {
         const { pregnancy_id } = req.params;
-        const { category_jurnal, desc, trimester_id } = req.body;
+        const { category_jurnal, trimester_id } = req.body;
         
         try {
             const trimester = await Trimester.findOne({where: {id: trimester_id}});

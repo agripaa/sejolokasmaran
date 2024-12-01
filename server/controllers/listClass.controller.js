@@ -1,5 +1,6 @@
 const ListClass = require('../models/ListClass');
 const LearnList = require('../models/LearnList');
+const DetailClass = require('../models/DetailClass');
 const path = require('path');
 const fs = require('fs');
 
@@ -23,6 +24,26 @@ module.exports = {
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Error fetching list classes', details: error });
+        }
+    },
+
+    getAvailableClasses: async function (req, res) {
+        try {
+            // Cari kelas yang belum ada di tabel detail_class
+            const classesWithDetails = await DetailClass.findAll({
+                attributes: ['list_class_id'],
+            });
+
+            const usedClassIds = classesWithDetails.map((item) => item.list_class_id);
+
+            const availableClasses = await ListClass.findAll({
+                where: { id: { [Op.notIn]: usedClassIds } },
+            });
+
+            res.status(200).json({ status: 200, result: availableClasses });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Error fetching available classes', details: error });
         }
     },
 
