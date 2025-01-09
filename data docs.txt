@@ -7,7 +7,6 @@ RELATION TYPE :
     2. SUAMI
     3. ISTRI
 
-
 CATEGORY JOURNAL :
     1. Jurnal Bayi Kecilku
     2. Jurnal Kehamilanku
