@@ -1,0 +1,14 @@
+ROLES : 
+    1. USER
+    2. ADMIN
+
+RELATION TYPE : 
+    1. KERABAT
+    2. SUAMI
+    3. ISTRI
+
+
+CATEGORY JOURNAL :
+    1. Jurnal Bayi Kecilku
+    2. Jurnal Kehamilanku
+    3. Jurnal Pasca Kehamilanku

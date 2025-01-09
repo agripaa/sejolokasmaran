@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 const response = await fetch(`${baseUrl}/list_class/available`, {
                     headers: {
-                        "Authorization": token,
+                        Authorization: token,
                     },
                 });
                 const data = await response.json();

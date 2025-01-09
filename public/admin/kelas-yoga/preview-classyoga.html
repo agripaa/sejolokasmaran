@@ -59,15 +59,12 @@
       text-decoration: underline;
     }
 
-    .action-buttons button {
-      background: none;
-      border: none;
-      color: red;
-      cursor: pointer;
-    }
-
     .action-buttons button:hover {
       text-decoration: underline;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -76,7 +73,7 @@
   <div class="content">
     <div class="header-list">
       <h1>Yoga Classes</h1>
-      <a href="/public/admin/kelas-yoga/add-edit-classyoga.html" id="add-class-btn" class="add-class-btn">Add Yoga Class</a>
+      <button id="add-class-btn" class="add-class-btn">Add Yoga Class</button>
     </div>
     <table class="class-table">
       <thead>
@@ -91,7 +88,24 @@
       </tbody>
     </table>
   </div>
+
+  <div id="modal-container" class="modal hidden">
+    <div class="modal-content">
+      <span id="close-modal" class="close">&times;</span>
+      <h2 id="modal-title">Add Yoga Class</h2>
+      <form id="yoga-form">
+        <div class="form-group">
+          <label for="url-link">URL Link</label>
+          <input type="url" id="url-link" name="url_link" placeholder="Enter URL link" required />
+        </div>
+        <button type="submit" id="save-btn">Save</button>
+      </form>
+    </div>
+  </div>
+  
   <script src="/public/assets/js/sidebar.js"></script>
   <script src="/public/assets/js/preview-classyoga.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 </html>

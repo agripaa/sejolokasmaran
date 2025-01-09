@@ -24,6 +24,28 @@ module.exports = {
         }
       },
 
+      getDetailClassById: async function (req, res) {
+        const { id } = req.params;
+        
+        try {
+          const detailClasses = await DetailClass.findOne({
+            include: [
+              { model: ListClass, attributes: ['title'] },
+              { model: Subject, attributes: ['sub_lear_path'] }, 
+            ],
+            where: { list_class_id: id }
+          });
+      
+          if (detailClasses.length === 0) {
+            return res.status(404).json({ status: 404, msg: "No detail classes found." });
+          }
+      
+          res.status(200).json({ status: 200, result: detailClasses });
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Error fetching detail classes', details: error });
+        }
+      },
     createDetailClass: async function (req, res) {
         const { list_class_id, desc } = req.body;
       

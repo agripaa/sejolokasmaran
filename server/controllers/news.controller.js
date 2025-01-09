@@ -29,6 +29,8 @@ module.exports = {
                 include: [{
                     model: NewsContent,
                     attributes: ['paragraph', 'position'],
+                },{
+                    model: Author
                 }],
             });
             if (!news) return res.status(404).json({ status: 404, msg: "News not found." });

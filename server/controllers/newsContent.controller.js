@@ -24,22 +24,17 @@ module.exports = {
         const { paragraph, position } = req.body;
     
         try {
-            console.log(`Received request for news_id ${news_id} with data:`, { paragraph, position });
-    
-            // Check if the news exists
             const news = await News.findOne({ where: { id: news_id } });
             if (!news) {
                 console.error(`News with ID ${news_id} not found.`);
                 return res.status(404).json({ status: 404, msg: 'News not found.' });
             }
     
-            // Validate required fields
             if (!paragraph || !position) {
                 console.error('Invalid data:', { paragraph, position });
                 return res.status(400).json({ status: 400, msg: 'Paragraph and position are required.' });
             }
     
-            // Check for duplicate positions
             const existingContent = await NewsContent.findOne({ where: { news_id, position } });
             if (existingContent) {
                 console.error(`Position ${position} already exists for news ID ${news_id}.`);
@@ -49,10 +44,8 @@ module.exports = {
                 });
             }
     
-            // Insert the content
             const content = await NewsContent.create({ news_id, paragraph, position });
-            console.log(`Content created successfully:`, content);
-    
+
             res.status(201).json({
                 status: 201,
                 msg: 'News content created successfully.',
@@ -74,7 +67,6 @@ module.exports = {
                 return res.status(404).json({ status: 404, msg: 'News content not found.' });
             }
 
-            // Check if the new position already exists for the same news
             const existingContent = await NewsContent.findOne({ 
                 where: { news_id: content.news_id, position, id: { $ne: id } } 
             });

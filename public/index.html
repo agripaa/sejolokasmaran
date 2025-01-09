@@ -461,6 +461,12 @@
         </p>
       </section>
 
+      <section class="pt-8 pb-8 container px-auto flex justify-center text-center">
+        <a href="/public/services/live-chat/consultation-options.html">
+          <img src="/public/assets/imgs/cta-livechat.png" class="h-128 rounded-xl" alt="cta livechat img ">
+        </a>
+      </section>
+
       <!-- Survey -->
       <section
         class="py-20 xl:bg-contain bg-top bg-no-repeat"
@@ -664,31 +670,41 @@
                   class="carausel-fade slick-carausel rounded"
                   id="carausel-fade-1"
                 >
-                  <img
-                    class="rounded"
-                    src="/public/assets/imgs/placeholders/kelas-yoga.png"
-                    alt=""
-                  />
-                  <img
-                    class="rounded"
-                    src="/public/assets/imgs/placeholders/konsultasi-langsung.png"
-                    alt=""
-                  />
-                  <img
-                    class="rounded"
-                    src="/public/assets/imgs/placeholders/pojok-pintar.png"
-                    alt=""
-                  />
-                  <img
-                    class="rounded"
-                    src="/public/assets/imgs/placeholders/journal-kehamilan.png"
-                    alt=""
-                  />
-                  <img
-                    class="rounded"
-                    src="/public/assets/imgs/placeholders/dukungan-komunitas.png"
-                    alt=""
-                  />
+                  <a href="/public/services/online-prenatal-yoga/live-yoga-notification.html">
+                    <img
+                      class="rounded"
+                      src="/public/assets/imgs/placeholders/kelas-yoga.png"
+                      alt=""
+                    />
+                  </a>
+                  <a href="/public/services/live-chat/consultation-options.html">
+                    <img
+                      class="rounded"
+                      src="/public/assets/imgs/placeholders/konsultasi-langsung.png"
+                      alt=""
+                    />
+                  </a>
+                  <a href="/public/services.html">
+                    <img
+                      class="rounded"
+                      src="/public/assets/imgs/placeholders/pojok-pintar.png"
+                      alt=""
+                    />
+                  </a>
+                  <a href="/public/services/pregnancy-journal/journal.html">
+                    <img
+                      class="rounded"
+                      src="/public/assets/imgs/placeholders/journal-kehamilan.png"
+                      alt=""
+                    />
+                  </a>
+                  <a href="/public/services/pregnant-women-community/">
+                    <img
+                      class="rounded"
+                      src="/public/assets/imgs/placeholders/dukungan-komunitas.png"
+                      alt=""
+                    />
+                  </a>
                 </div>
               </div>
             </div>
@@ -1259,7 +1275,7 @@
             const username = result.result.username; 
 
             navbarAuth.innerHTML = `
-              <span class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</span>
+              <a href="/public/user/profile.html" class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</a>
               <button class="btn-accent hover-up-2" id="logout">Keluar</button>
             `;
 

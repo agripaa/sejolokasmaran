@@ -5,8 +5,8 @@ const uploadImage = require('../middleware/uploadImage.middleware');
 
 const router = express.Router();
 
-router.get('/', verifyToken, newsController.getAllNews);
-router.get('/:id', verifyToken, newsController.getNewsById);
+router.get('/', newsController.getAllNews);
+router.get('/:id', newsController.getNewsById);
 router.post('/', verifyToken, uploadImage, newsController.createNews);
 router.patch('/:id', verifyToken, uploadImage, newsController.updateNews);
 router.delete('/:id', verifyToken, newsController.deleteNews);

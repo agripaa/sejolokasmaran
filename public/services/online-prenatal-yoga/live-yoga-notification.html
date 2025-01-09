@@ -221,29 +221,24 @@
       <!--Hero-->
       <section class="relative min-h-screen flex justify-center items-center pt-20 pb-32">
         <div class="container text-center">
-          <span
-            class="text-4xl text-blue-500 font-bold font-heading wow animate__animated animate__fadeIn"
-            data-wow-delay=".2s"
-            >Nantikan Live Yoga</span
-          >
-          <h2
-            class="mb-2 text-4xl font-bold font-heading wow animate__animated animate__fadeIn"
-            data-wow-delay=".3s"
-          >
-            Setiap Sabtu!
-          </h2>
-          <p
-            class="mb-6 text-blueGray-400 wow animate__animated animate__fadeInUp"
-            data-wow-delay=".4s"
-          ></p>
-          <div>
-            <a
-              class="block sm:inline-block py-4 px-8 mb-4 sm:mb-0 sm:mr-3 text-xs text-white text-center font-semibold leading-none bg-blue-400 hover:bg-blue-500 rounded wow animate__animated animate__fadeInUp"
-              data-wow-delay=".5s"
-              href="./index.html"
-              >Kembali ke Beranda</a
+          <div id="no-live">
+            <span
+              class="text-4xl text-blue-500 font-bold font-heading wow animate__animated animate__fadeIn"
+              data-wow-delay=".2s"
+              >Nantikan Live Yoga</span
             >
+            <h2
+              class="mb-2 text-4xl font-bold font-heading wow animate__animated animate__fadeIn"
+              data-wow-delay=".3s"
+            >
+              Setiap Sabtu!
+            </h2>
+            <p
+              class="mb-6 text-blueGray-400 wow animate__animated animate__fadeInUp"
+              data-wow-delay=".4s"
+            ></p>
           </div>
+          <div id="yoga-content" class="mt-10">
         </div>
       </section>
 
@@ -532,12 +527,13 @@
     <script src="/public/assets/js/vendor/mobile-menu.js"></script>
     <script src="/public/assets/js/main.js?v=2.0"></script>
     <script>
-document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
       fetch('../../config.json')
         .then((response) => response.json())
         .then(async (config) => {
           const apiBaseUrl = config.API_BASE_URL;
           const profilUrl = `${apiBaseUrl}/auth/profile`;
+          const yogaUrl = `${apiBaseUrl}/class_yoga/`
           const token = localStorage.getItem('token');
 
           const navbarAuth = document.getElementById('navbar-auth');
@@ -549,6 +545,49 @@ document.addEventListener('DOMContentLoaded', () => {
           }
 
           try {
+          // Fetch yoga class
+          const response = await fetch(yogaUrl, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `${token}`,
+            },
+            method: "GET",
+          });
+
+          if (!response.ok) {
+            throw new Error("Gagal mendapatkan data kelas yoga");
+          }
+
+          const { result } = await response.json();
+          const yogaContent = document.getElementById("yoga-content");
+          const noLive = document.getElementById('no-live');
+
+          if (result.length > 0 && result[0].url_link) {
+            noLive.innerHTML = ``;
+            
+            yogaContent.innerHTML = `
+              <iframe 
+                class="w-full aspect-video mx-auto min-h-screen rounded-lg shadow-md"
+                src="${result[0].url_link}" 
+                title="Live Yoga" 
+                allowfullscreen>
+              </iframe>
+            `;
+          } else {
+            // Jika tidak ada URL, tampilkan pesan menunggu
+            yogaContent.innerHTML = `
+              <p class="text-lg text-blueGray-600">Live Yoga akan dimulai. Silakan cek kembali nanti!</p>
+            `;
+          }
+        } catch (error) {
+          console.error("Gagal mendapatkan data yoga:", error);
+          const yogaContent = document.getElementById("yoga-content");
+          yogaContent.innerHTML = `
+            <p class="text-lg text-red-600">Terjadi kesalahan. Silakan coba lagi nanti.</p>
+          `;
+        }
+
+          try {
             const response = await fetch(profilUrl, {
               method: 'GET',
               headers: {
@@ -558,7 +597,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-              // Jika token tidak valid, arahkan ke halaman login
               window.location.href = '/public/user/login.html';
               return;
             }
@@ -566,9 +604,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
             const username = result.result.username; // Pastikan API mengembalikan `username`
 
-            // Tampilkan username dan tombol logout
             navbarAuth.innerHTML = `
-              <span class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</span>
+              <a href="/public/user/profile.html" class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</a>
               <button class="btn-accent hover-up-2" id="logout">Keluar</button>
             `;
 

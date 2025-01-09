@@ -20,6 +20,10 @@ const newsRoutes = require('./news.route');
 const authorRoutes = require('./author.route');
 const newsContentRoutes = require('./newsContent.route');
 const classYogaRoutes = require('./classYoga.route');
+const categoryJournalRoutes = require("./categoryJournal.route");
+const journalRoutes = require('./journal.route');
+const babyJournalRoutes = require('./babyJournal.route');
+const postpartrumJournalRoutes = require('./postpartrum.route');
 
 const router = express.Router();
 
@@ -52,5 +56,9 @@ router.use('/news', newsRoutes);
 router.use('/author', authorRoutes);
 router.use('/news_content', newsContentRoutes);
 router.use('/class_yoga', classYogaRoutes);
+router.use('/category_journal', categoryJournalRoutes);
+router.use('/journal', journalRoutes)
+router.use('/baby_journal', babyJournalRoutes);
+router.use('/postpartrum_journal', postpartrumJournalRoutes)
 
 module.exports = router;

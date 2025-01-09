@@ -76,16 +76,16 @@ document.addEventListener("DOMContentLoaded", () => {
                   <td>${index + 1}</td>
                   <td>${item.category_name}</td>
                   <td>
-                    <button class="edit-btn" data-id="${item.id}">Edit</button>
-                    <button class="delete-btn" data-id="${item.id}">Delete</button>
+                    <button class="btn btn-edit" data-id="${item.id}">Edit</button>
+                    <button class="btn btn-danger" data-id="${item.id}">Delete</button>
                   </td>
                 </tr>
               `;
               tbody.innerHTML += row;
             });
   
-            const editButtons = document.querySelectorAll(".edit-btn");
-            const deleteButtons = document.querySelectorAll(".delete-btn");
+            const editButtons = document.querySelectorAll(".btn-edit");
+            const deleteButtons = document.querySelectorAll(".btn-danger");
   
             editButtons.forEach((button) =>
               button.addEventListener("click", (e) => handleEdit(e, data.result))
@@ -113,8 +113,17 @@ document.addEventListener("DOMContentLoaded", () => {
   
         async function handleDelete(e) {
           const id = e.target.dataset.id;
+
+          const result = await Swal.fire({
+            title: "Hapus Kategori?",
+            text: "Anda yakin ingin menghapus kategori ini?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Hapus",
+            cancelButtonText: "Batal",
+          });
   
-          if (confirm("Apakah Anda yakin ingin menghapus kategori ini?")) {
+          if (result.isConfirmed) {
             try {
               const response = await fetch(`${baseUrl}/learn_category/${id}`, {
                 method: "DELETE",
@@ -124,10 +133,16 @@ document.addEventListener("DOMContentLoaded", () => {
               });
               const data = await response.json();
               if (data.status === 200) {
-                alert("Kategori berhasil dihapus!");
+                Swal.fire({
+                  icon: "success",
+                  title: "Berhasil!",
+                  text: "Kategori berhasil dihapus.",
+                  timer: 2000,
+                  showConfirmButton: false,
+                });
                 fetchCategories();
               } else {
-                alert(data.msg);
+                Swal.fire("Gagal!", data.msg, "error");
               }
             } catch (error) {
               console.error("Error deleting category:", error);

@@ -6,6 +6,7 @@ const ListClass = db.define('ListClass', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     img_path: { type: DataTypes.STRING(255), allowNull: false },
     title: { type: DataTypes.STRING(125), allowNull: false },
+    desc: { type: DataTypes.TEXT, allowNull: false },
     learn_list_id: { type: DataTypes.INTEGER, allowNull: false },
 }, { freezeTableName: true });
 

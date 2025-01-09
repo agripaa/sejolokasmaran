@@ -728,7 +728,7 @@
               const username = result.result.username; // Pastikan API mengembalikan `username`
 
               navbarAuth.innerHTML = `
-                <span class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</span>
+                <a href="/public/user/profile.html" class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</a>
                 <button class="btn-accent hover-up-2" id="logout">Keluar</button>
               `;
 

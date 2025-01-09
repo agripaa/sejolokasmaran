@@ -75,9 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 <tr>
                   <td>${item.cat_trimester}</td>
                   <td>${item.desc}</td>
+                  <td>${item.baby_desc ? item.baby_desc : "-"}</td>
+                  <td>${item.postpartum_desc ? item.postpartum_desc : "-"}</td>
                   <td>
-                    <button class="edit-btn" data-id="${item.id}">Edit</button>
-                    <button class="delete-btn" data-id="${item.id}">Delete</button>
+                    <button class="btn btn-edit" data-id="${item.id}">Edit</button>
+                    <button class="btn btn-danger" data-id="${item.id}">Delete</button>
                   </td>
                 </tr>
               `;
@@ -85,13 +87,13 @@ document.addEventListener("DOMContentLoaded", () => {
             });
   
             // Tambahkan event listener untuk tombol Edit dan Delete
-            const editButtons = document.querySelectorAll(".edit-btn");
-            const deleteButtons = document.querySelectorAll(".delete-btn");
+            const editButtons = document.querySelectorAll(".btn-edit");
+            const deleteButtons = document.querySelectorAll(".btn-danger");
   
             editButtons.forEach((button) =>
               button.addEventListener("click", (e) => handleEdit(e, data.result))
             );
-  
+
             deleteButtons.forEach((button) =>
               button.addEventListener("click", (e) => handleDelete(e))
             );

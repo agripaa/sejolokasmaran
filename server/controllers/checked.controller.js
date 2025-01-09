@@ -5,8 +5,7 @@ module.exports = {
     getAllChecked: async function(req, res) {
         try {
             const checkeds = await Checked.findAll();
-            if(checkeds.length === 0) return res.status(404).json({status: 404, msg: "Checked is not found!"});
-            
+
             res.status(200).json({status: 200, result: checkeds});
         } catch (error) {
             console.error(error);

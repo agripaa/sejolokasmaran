@@ -989,6 +989,15 @@ video {
 .w-2\/3{
 	width: 66.666667% !important;
 }
+.w-8\/12{
+	width: 65% !important;
+}
+.w-4\/12{
+	width: 30% !important;
+}
+.w-38 {
+	width: 8rem !important;
+}
 .w-40{
 	width: 10rem !important;
 }
@@ -1081,6 +1090,9 @@ video {
 }
 .justify-around{
 	justify-content: space-around !important;
+}
+.justify-end{
+	justify-content: end;
 }
 .space-y-3 > :not([hidden]) ~ :not([hidden]){
 	--tw-space-y-reverse: 0 !important;

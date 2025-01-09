@@ -5,7 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const authorPositionInput = document.getElementById('author-position');
     const authorIdInput = document.getElementById('author-id'); // Hidden input for author_id
     const token = localStorage.getItem('token');
-  
+
+    const imageInput = document.getElementById('image');
+    const imagePreview = document.getElementById('image-preview');
+
     let apiBaseUrl = '';
   
     fetch('/public/config.json')
@@ -20,6 +23,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     authorResults.style.display = 'none';
                     return;
                 }
+
+                    // Preview image on file input change
+                    imageInput.addEventListener('change', (event) => {
+                      const file = event.target.files[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                          imagePreview.src = e.target.result;
+                          imagePreview.style.display = 'block';
+                        };
+                        reader.readAsDataURL(file);
+                      } else {
+                        imagePreview.style.display = 'none';
+                      }
+                    });
   
                 try {
                     const response = await fetch(`${apiBaseUrl}/author/search?search=${query}`, {
@@ -36,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         authors.result.forEach(author => {
                             const li = document.createElement('li');
                             li.textContent = `${author.name} - ${author.position}`;
-                            console.log({author})
+                             
                             li.dataset.id = author.id; 
                             li.dataset.name = author.name;
                             li.dataset.position = author.position;
@@ -83,8 +101,10 @@ document.addEventListener('DOMContentLoaded', () => {
           const paragraphContainer = document.createElement('div');
           paragraphContainer.classList.add('paragraph-container');
           paragraphContainer.innerHTML = `
-            <textarea name="paragraph" rows="4" placeholder="Write a paragraph..."></textarea>
+          <textarea name="paragraph" rows="4" placeholder="Write a paragraph..."></textarea>
+          <div class='action-parahraph'>
             <button type="button" class="btn btn-danger remove-paragraph">Hapus Paragraf</button>
+          </div>
           `;
           paragraphsContainer.appendChild(paragraphContainer);
   
@@ -109,9 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Please select an author!');
             return;
           }
-    
-            
-          console.log({authorId})
 
           const paragraphs = Array.from(document.querySelectorAll('textarea[name="paragraph"]')).map(
             (textarea, index) => ({

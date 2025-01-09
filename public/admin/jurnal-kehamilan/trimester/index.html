@@ -17,7 +17,9 @@
       <thead>
         <tr>
           <th>Trimester</th>
-          <th>Deskripsi</th>
+          <th>Deskripsi Kehamilan</th>
+          <th>Deskripsi Bayi</th>
+          <th>Deskripsi Pasca Kehamilan</th>
           <th>Aksi</th>
         </tr>
       </thead>
@@ -34,11 +36,16 @@
       <h2>Upload Trimester</h2>
       <form id="uploadTrimesterForm">
         <label for="cat_trimester">Category Trimester:</label>
-        <input type="text" id="cat_trimester" name="cat_trimester" required>
+        <input type="number" id="cat_trimester" name="cat_trimester" min="0">
         
-        <label for="desc">Deskripsi:</label>
+        <label for="desc">Deskripsi Kehamilam:</label>
         <textarea id="desc" name="desc" required></textarea>
         
+        <label for="baby_desc">Deskripsi Bayi:</label>
+        <textarea id="baby_desc" name="baby_desc" required></textarea>
+
+        <label for="postpartum_desc">Deskripsi Pasca Kehamilam:</label>
+        <textarea id="postpartum_desc" name="postpartum_desc" required></textarea>
         <button type="submit">Upload</button>
       </form>
     </div>

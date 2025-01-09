@@ -37,7 +37,7 @@ module.exports = {
     },
 
     createLearnList: async function (req, res) {
-        const { title, category_id } = req.body;
+        const { title, desc, category_id } = req.body;
 
         if (!req.files || !req.files.img_path) {
             return res.status(400).json({ status: 400, msg: "Image file is required." });
@@ -70,6 +70,7 @@ module.exports = {
 
                 const learnList = await LearnList.create({
                     title,
+                    desc,
                     img_path: `/uploads/${imageFile.name}`,
                     category_id,
                 });
@@ -88,7 +89,7 @@ module.exports = {
 
     updateLearnList: async function (req, res) {
         const { id } = req.params;
-        const { title, category_id } = req.body;
+        const { title, desc, category_id } = req.body;
     
         const learn_category = await LearnCategory.findOne({
             where: {id: category_id}
@@ -133,7 +134,7 @@ module.exports = {
             }
     
             await LearnList.update(
-                { title, img_path: newImagePath, category_id },
+                { title, desc, img_path: newImagePath, category_id },
                 { where: { id } }
             );
     

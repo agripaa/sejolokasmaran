@@ -10,8 +10,10 @@
   <div id="sidebar-container"></div> 
   <div class="content">
     <div class="header-list">
-      <h1>List Jurnal Kehamilan</h1>
-      <button id="uploadJournalBtn" class="add-list">Tambah Jurnal</button>
+      <h1 class="header-title">List Jurnal Kehamilan</h1>
+      <button id="uploadJournalBtn" class="add-list">
+        <i class="fas fa-plus"></i> Tambah Jurnal
+      </button>      
     </div>
     <table id="journal-table" class="journal-table">
       <thead>
@@ -28,33 +30,46 @@
       </tbody>
     </table>
   </div>
-
+  
   <!-- Modal untuk Upload/Update Jurnal -->
   <div id="uploadJournalModal" class="modal hidden">
     <div class="modal-content">
       <span class="close">&times;</span>
       <h2>Tambah/Edit Jurnal</h2>
       <form id="uploadJournalForm">
-        <label for="journal">Nama Jurnal:</label>
-        <input type="text" id="journal" name="journal" required>
-
-        <label for="is_required">Wajib:</label>
-        <select id="is_required" name="is_required" required>
-          <option value="true">Ya</option>
-          <option value="false">Tidak</option>
-        </select>
-
-        <label for="pregnancy_journal_id">Kategori Kehamilan:</label>
-        <select id="pregnancy_journal_id" name="pregnancy_journal_id" required>
-          <!-- Options akan dimuat secara dinamis -->
-        </select>
-
-        <button type="submit">Simpan</button>
+        <div class="form-group">
+          <label for="journal">Nama Jurnal:</label>
+          <input type="text" id="journal" name="journal" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="is_required">Wajib:</label>
+          <select id="is_required" name="is_required" required>
+            <option value="true">Ya</option>
+            <option value="false">Tidak</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="pregnancy_journal_id">Kategori Kehamilan:</label>
+          <select id="pregnancy_journal_id" name="pregnancy_journal_id" required>
+            <!-- Options akan dimuat secara dinamis -->
+          </select>
+        </div>
+  
+        <button type="submit" class="btn btn-primary">Simpan</button>
       </form>
     </div>
+  </div>
+  
+
+  <!-- Modal untuk Upload/Update Jurnal -->
+  <div id="uploadJournalModal" class="modal hidden">
+  </div>
   </div>
 
   <script src="/public/assets/js/sidebar.js"></script>
   <script src="/public/assets/js/list-jurnal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

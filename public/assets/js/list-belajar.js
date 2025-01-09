@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <tr>
                   <td>${index + 1}</td>
                   <td>${item.title}</td>
+                  <td>${item.desc}</td>
                   <td>${item.LearnCategory.category_name}</td>
                   <td><img src="${imageUrl}${item.img_path}" alt="${item.title}" width="50"></td>
                   <td>

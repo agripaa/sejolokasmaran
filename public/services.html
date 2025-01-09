@@ -371,6 +371,66 @@
               >
                 <div class="w-full flex place-content-center">
                   <p class="capitalize font-bold text-2xl text-center">
+                    Jurnal Bayi Kecilku
+                  </p>
+                </div>
+                <div class="w-full flex place-content-cente">
+                  <p class="font-sans text-center ext-white mt-5 mb-6">
+                    Catat milestone, pertumbuhan fisik, jadwal vaksinasi, dan momen penting kunjungan dokter untuk si kecil.
+                  </p>
+                </div>
+                <a
+                  class="tracking-wide hover-up-2 inline-block px-4 py-3 text-xs font-semibold leading-none bg-blue-400 hover:bg-blue-500 text-white rounded"
+                  href="/public/services/journal/journal_baby.html"
+                  >Lihat Detail</a
+                >
+              </div>
+            </div>
+            <div
+              class="hover-up-5 w-full lg:w-1/2 px-3 order-last lg:order-first mt-6 lg:mt-0 relative wow animate__animated animate__fadeIn animated"
+              data-wow-delay=".1s"
+            >
+              <img
+                class="h-128 w-full object-cover rounded"
+                src="assets/imgs/placeholders/pojok-pintar-square.png"
+                alt=""
+              />
+              <div
+                class="absolute text-center bg-white rounded card-label-center px-4 py-12"
+              >
+                <div class="w-full flex place-content-center">
+                  <p class="capitalize font-bold text-2xl text-center">
+                    Jurnal Pasca Kehamilanku
+                  </p>
+                </div>
+                <div class="w-full flex place-content-cente">
+                  <p class="font-sans text-center ext-white mt-5 mb-6">
+                    Cermati pemulihan, masa nifas, pola makan sehat, serta perjalanan adaptasi menjadi ibu dengan jurnal praktis ini.
+                  </p>
+                </div>
+                <a
+                  class="tracking-wide hover-up-2 inline-block px-4 py-3 text-xs font-semibold leading-none bg-blue-400 hover:bg-blue-500 text-white rounded"
+                  href="/public/services/journal/postpartum_journal.html"
+                  >Lihat Detail</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div
+              class="hover-up-5 w-full lg:w-1/2 px-3 order-last lg:order-first mt-6 lg:mt-0 relative wow animate__animated animate__fadeIn animated"
+              data-wow-delay=".1s"
+            >
+              <img
+                class="h-128 w-full object-cover rounded"
+                src="assets/imgs/placeholders/pojok-pintar-square.png"
+                alt=""
+              />
+              <div
+                class="absolute text-center bg-white rounded card-label-center px-4 py-12"
+              >
+                <div class="w-full flex place-content-center">
+                  <p class="capitalize font-bold text-2xl text-center">
                     Jurnal Kehamilanku
                   </p>
                 </div>
@@ -383,7 +443,7 @@
                 </div>
                 <a
                   class="tracking-wide hover-up-2 inline-block px-4 py-3 text-xs font-semibold leading-none bg-blue-400 hover:bg-blue-500 text-white rounded"
-                  href="/public/services/pregnancy-journal/journal.html"
+                  href="/public/services/journal/journal.html"
                   >Lihat Detail</a
                 >
               </div>
@@ -448,7 +508,7 @@
                 </div>
                 <a
                   class="tracking-wide hover-up-2 inline-block px-4 py-3 text-xs font-semibold leading-none bg-blue-400 hover:bg-blue-500 text-white rounded"
-                  href="/public/services/pregnant-women-community/coming-soon.html"
+                  href="/public/services/pregnant-women-community/"
                   >Lihat Detail</a
                 >
               </div>
@@ -481,6 +541,38 @@
                 <a
                   class="tracking-wide hover-up-2 inline-block px-4 py-3 text-xs font-semibold leading-none bg-blue-400 hover:bg-blue-500 text-white rounded"
                   href="/public/services/online-prenatal-yoga/live-yoga-notification.html"
+                  >Lihat Detail</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div
+              class="hover-up-5 w-full lg:w-1/2 px-3 order-last lg:order-first mt-6 lg:mt-0 relative wow animate__animated animate__fadeIn animated"
+              data-wow-delay=".1s"
+            >
+              <img
+                class="h-128 w-full object-cover rounded"
+                src="assets/imgs/placeholders/pojok-pintar-square.png"
+                alt=""
+              />
+              <div
+                class="absolute text-center bg-white rounded card-label-center px-4 py-12"
+              >
+                <div class="w-full flex place-content-center">
+                  <p class="capitalize font-bold text-2xl text-center">
+                    Si KB Pintar
+                  </p>
+                </div>
+                <div class="w-full flex place-content-cente">
+                  <p class="font-sans text-center ext-white mt-5 mb-6">
+                    Dapatkan perkiraan tanggal persalinan Anda dengan kalkulator ini. Alat ini membantu Anda mempersiapkan diri dan menyusun rencana persalinan dengan baik.
+                  </p>
+                </div>
+                <a
+                  class="tracking-wide hover-up-2 inline-block px-4 py-3 text-xs font-semibold leading-none bg-blue-400 hover:bg-blue-500 text-white rounded"
+                  href="https://si-kb-pintar.web.app/#/"
+                  target="_blank"
                   >Lihat Detail</a
                 >
               </div>
@@ -659,7 +751,7 @@
                     <li>
                       <a
                         class="text-lg text-blueGray-400 hover:text-blueGray-500"
-                        href="/public/services/pregnancy-journal/journal.html"
+                        href="/public/services/journal/journal.html"
                         >Jurnal Kehamilanku</a
                       >
                     </li>
@@ -813,7 +905,7 @@
               const username = result.result.username; // Pastikan API mengembalikan `username`
 
               navbarAuth.innerHTML = `
-                <span class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</span>
+                <a href="/public/user/profile.html" class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</a>
                 <button class="btn-accent hover-up-2" id="logout">Keluar</button>
               `;
 

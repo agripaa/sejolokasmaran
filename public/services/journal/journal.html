@@ -96,6 +96,12 @@
       .task-list input {
         margin-right: 10px;
       }
+      @media screen and (max-width: 425px){
+        .timeline {
+          width: 100%;
+          max-width: 100%;
+        }
+      }
     </style>
   </head>
   <body class="bg-white text-body font-body">
@@ -301,230 +307,7 @@
           <h1 class="text-2xl lg:text-4xl font-bold mb-5">Jurnal Kehamilan</h1>
 
           <ul class="timeline">
-            <!-- Trimester 1 -->
-            <li class="event" data-date="TRIMESTER 1">
-              <p>
-                Di trimester pertama, pemeriksaan bertujuan untuk memastikan
-                bahwa ibu benar-benar hamil dan mengetahui usia kehamilan dengan
-                tepat. Selain itu, dokter atau bidan akan memeriksa apakah ada
-                risiko atau masalah kesehatan yang bisa muncul di awal
-                kehamilan. Ibu juga akan diberi informasi dasar tentang makanan
-                sehat, olahraga yang aman, dan gaya hidup yang baik untuk
-                mendukung kehamilan.
-              </p>
-
-              <h3>Kunjungan yang Direkomendasikan:</h3>
-              <ul class="task-list">
-                <li>
-                  <input type="checkbox" id="task1-trimester1" />
-                  <label for="task1-trimester1">Bidan: 1 kali</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task2-trimester1" />
-                  <label for="task2-trimester1">
-                    Dokter: 1 kali, sebaiknya pada minggu ke-8 hingga ke-12
-                    <strong style="color: red">(wajib)</strong>
-                  </label>
-                </li>
-              </ul>
-
-              <h3>Pemeriksaan oleh Bidan:</h3>
-              <ul class="task-list">
-                <li>
-                  <input type="checkbox" id="task1-bidan-trimester1" />
-                  <label for="task1-bidan-trimester1"
-                    >Pemeriksaan Urine: (PP Test, Reduksi, Protein)</label
-                  >
-                </li>
-                <li>
-                  <input type="checkbox" id="task2-bidan-trimester1" />
-                  <label for="task2-bidan-trimester1">
-                    Tanda-Tanda Vital (TTV): Tekanan darah, nadi, suhu, dan
-                    pernapasan
-                  </label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task3-bidan-trimester1" />
-                  <label for="task3-bidan-trimester1">
-                    Imunisasi TT (Tetanus Toxoid untuk mencegah infeksi tetanus
-                    pada ibu dan bayi)
-                  </label>
-                </li>
-              </ul>
-
-              <h3>Pemeriksaan oleh Dokter:</h3>
-              <ul class="task-list">
-                <li>
-                  <input type="checkbox" id="task1-dokter-trimester1" />
-                  <label for="task1-dokter-trimester1">
-                    Pemeriksaan Laboratorium: Darah (Golongan darah, Gula darah,
-                    Hematokrit, Skrining hepatitis, HIV), Urine (PP Test,
-                    Reduksi, Protein), dan Toksoplasma (opsional)
-                  </label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task2-dokter-trimester1" />
-                  <label for="task2-dokter-trimester1">
-                    Tanda-Tanda Vital (TTV): Tekanan darah, nadi, suhu, dan
-                    pernapasan
-                  </label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task3-dokter-trimester1" />
-                  <label for="task3-dokter-trimester1">
-                    Pemeriksaan USG: Konfirmasi kantung kehamilan, denyut
-                    jantung janin, usia kehamilan, NT Scan
-                  </label>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Trimester 2 -->
-            <li class="event" data-date="TRIMESTER 2">
-              <p>
-                Pada trimester kedua, pemeriksaan akan memastikan bahwa bayi
-                tumbuh dengan baik sesuai usianya. Dokter atau bidan juga akan
-                memeriksa apakah ada masalah seperti diabetes selama hamil atau
-                tekanan darah tinggi (preeklamsia). Ibu juga akan mendapatkan
-                informasi tentang perubahan tubuh yang terjadi dan persiapan
-                untuk menyusui setelah bayi lahir.
-              </p>
-
-              <h3>Kunjungan yang Direkomendasikan:</h3>
-              <ul class="task-list">
-                <li>
-                  <input type="checkbox" id="task1-trimester2" />
-                  <label for="task1-trimester2">
-                    Dokter: Minimal 1 kali, sebaiknya pada minggu ke-15 s.d 18
-                  </label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task2-trimester2" />
-                  <label for="task2-trimester2">Bidan: Minimal 2 kali</label>
-                </li>
-              </ul>
-
-              <h3>Pemeriksaan oleh Bidan:</h3>
-              <ul class="task-list">
-                <li>
-                  <input type="checkbox" id="task1-bidan-trimester2" />
-                  <label for="task1-bidan-trimester2">
-                    Pemeriksaan darah (Hemoglobin), urine (Reduksi, Protein),
-                    sebagai upaya Deteksi dini preeklamsia, diabetes
-                    gestasional, anemia
-                  </label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task2-bidan-trimester2" />
-                  <label for="task2-bidan-trimester2">
-                    Tanda-Tanda Vital (TTV): Tekanan darah, nadi, suhu, dan
-                    pernapasan, kesejahteraan ibu dan janin (Pemeriksaan tinggi
-                    fundus uteri, denyut jantung janin)
-                  </label>
-                </li>
-              </ul>
-
-              <h3>Pemeriksaan oleh Dokter:</h3>
-              <ul class="task-list">
-                <li>
-                  <input type="checkbox" id="task1-dokter-trimester2" />
-                  <label for="task1-dokter-trimester2">
-                    Pertimbangan untuk pemeriksaan kromosom janin bila ada
-                    riwayat kelainan atau kecacatan pada keluarga
-                  </label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task2-dokter-trimester2" />
-                  <label for="task2-dokter-trimester2">
-                    USG untuk memeriksa perkembangan organ janin dan posisi
-                    plasenta
-                  </label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task3-dokter-trimester2" />
-                  <label for="task3-dokter-trimester2">
-                    Mengetahui jenis kelamin bayi melalui USG setelah minggu
-                    ke-16
-                  </label>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Trimester 3 -->
-            <li class="event" data-date="TRIMESTER 3">
-              <p>
-                Di trimester ketiga, pemeriksaan lebih sering dilakukan untuk
-                memastikan bayi tumbuh dengan sehat dan ibu tetap dalam kondisi
-                baik. Selain itu, persiapan untuk melahirkan akan dibahas,
-                termasuk apa yang perlu dilakukan saat persalinan dan bagaimana
-                merawat bayi setelah lahir.
-              </p>
-
-              <h3>Kunjungan yang Direkomendasikan:</h3>
-              <ul class="task-list">
-                <li>
-                  <input type="checkbox" id="task1-trimester3" />
-                  <label for="task1-trimester3">Bidan: Minimal 2 kali</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task2-trimester3" />
-                  <label for="task2-trimester3">
-                    Dokter: Minimal 1 kali, pada minggu ke-36
-                    <strong style="color: red">(wajib)</strong>
-                  </label>
-                </li>
-              </ul>
-
-              <h3>Pemeriksaan oleh Bidan:</h3>
-              <ul class="task-list">
-                <li>
-                  <input type="checkbox" id="task1-bidan-trimester3" />
-                  <label for="task1-bidan-trimester3">
-                    Pemeriksaan darah (Hemoglobin), urine (Reduksi, Protein),
-                    sebagai upaya Deteksi dini preeklamsia, diabetes
-                    gestasional, anemia
-                  </label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task2-bidan-trimester3" />
-                  <label for="task2-bidan-trimester3">
-                    Tanda-Tanda Vital (TTV): Tekanan darah, nadi, suhu, dan
-                    pernapasan, kesejahteraan ibu dan janin (Pemeriksaan tinggi
-                    fundus uteri, denyut jantung janin)
-                  </label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task3-bidan-trimester3" />
-                  <label for="task3-bidan-trimester3">
-                    Pemeriksaan tinggi fundus uteri, posisi janin, dan denyut
-                    jantung janin
-                  </label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task4-bidan-trimester3" />
-                  <label for="task4-bidan-trimester3">
-                    Deteksi dini kehamilan kembar (efektif dilakukan setelah 28
-                    minggu)
-                  </label>
-                </li>
-              </ul>
-
-              <h3>Pemeriksaan oleh Dokter:</h3>
-              <ul class="task-list">
-                <li>
-                  <input type="checkbox" id="task1-dokter-trimester3" />
-                  <label for="task1-dokter-trimester3">
-                    USG untuk memantau fungsi plasenta dan tumbuh kembang janin
-                  </label>
-                </li>
-                <li>
-                  <input type="checkbox" id="task2-dokter-trimester3" />
-                  <label for="task2-dokter-trimester3"
-                    >Non-stress test jika ada indikasi</label
-                  >
-                </li>
-              </ul>
-            </li>
+            <p>No Content Here.</p>
           </ul>
         </div>
       </section>
@@ -814,20 +597,125 @@
     <script src="/public/assets/js/vendor/mobile-menu.js"></script>
     <script src="/public/assets/js/main.js?v=2.0"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener('DOMContentLoaded', () => {
       fetch('../../config.json')
         .then((response) => response.json())
         .then(async (config) => {
           const apiBaseUrl = config.API_BASE_URL;
           const profilUrl = `${apiBaseUrl}/auth/profile`;
+          const journalUrl = `${apiBaseUrl}/pregnancy_journal/journals`;
+          const checkedUrl = `${apiBaseUrl}/checked`;
           const token = localStorage.getItem('token');
-
           const navbarAuth = document.getElementById('navbar-auth');
 
-          // Jika token tidak ada, langsung arahkan ke halaman login
           if (!token) {
             window.location.href = '/public/user/login.html';
             return;
+          }
+
+          try {
+            const profileResponse = await fetch(profilUrl, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${token}`,
+              },
+            });
+
+            if (!profileResponse.ok) {
+              window.location.href = '/public/user/login.html';
+              return;
+            }
+
+            const profileData = await profileResponse.json();
+            const userId = profileData.result.id;
+
+            // Fetch Pregnancy Journals
+            const journalResponse = await fetch(journalUrl, {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${token}`,
+              },
+              method: 'GET',
+            });
+
+            if (!journalResponse.ok) {
+               
+              throw new Error('Gagal mendapatkan data jurnal kehamilan');
+            }
+
+            const { result } = await journalResponse.json();
+            const timeline = document.querySelector('.timeline');
+            timeline.innerHTML = '';
+
+            result.forEach((trimester) => {
+              console.log({trimester})
+              if (trimester.PregnancyJournals && trimester.PregnancyJournals.length > 0) {
+                const trimesterElement = `
+                  <li class="event" data-date="TRIMESTER ${trimester.cat_trimester}">
+                    <p>${trimester.desc}</p>
+                    ${trimester.PregnancyJournals.map((journal) => `
+                      <h3>${journal.category_jurnal}</h3>
+                      <ul class="task-list">
+                        ${journal.ListJournals.map((list) => `
+                          <li>
+                            <input type="checkbox" id="list-${list.id}" data-journal-id="${list.id}" />
+                            <label for="list-${list.id}">${list.journal} ${
+                              list.is_required ? '<strong style="color: red">(Wajib)</strong>' : ''
+                            }</label>
+                          </li>
+                        `).join('')}
+                      </ul>
+                    `).join('')}
+                  </li>
+                `;
+                timeline.innerHTML += trimesterElement;
+              }
+            });
+
+            // Fetch Checked Status
+            const checkedResponse = await fetch(checkedUrl, {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${token}`,
+              },
+              method: 'GET',
+            });
+
+            const checkedData = await checkedResponse.json();
+            const checkedList = checkedData.result;
+
+            document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+              const journalId = parseInt(checkbox.dataset.journalId, 10);
+              const checkedItem = checkedList.find((item) => item.list_journal_id === journalId && item.userId === userId);
+
+              if (checkedItem) {
+                checkbox.checked = checkedItem.is_checked;
+              }
+
+              checkbox.addEventListener('change', async (event) => {
+                const isChecked = event.target.checked;
+                const journalId = parseInt(event.target.dataset.journalId, 10);
+                try {
+                  const response = await fetch(`${checkedUrl}/${journalId}`, {
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: `${token}`,
+                    },
+                    method: 'POST',
+                    body: JSON.stringify({ is_checked: isChecked }),
+                  });
+
+                  if (!response.ok) {
+                    throw new Error(`Gagal memperbarui checkbox untuk journal ${journalId}`);
+                  }
+                } catch (error) {
+                  console.error(`Error updating checkbox for journal ${journalId}:`, error);
+                }
+              });
+            });
+          } catch (error) {
+            console.error('Gagal memuat data:', error);
           }
 
           try {
@@ -840,37 +728,35 @@
             });
 
             if (!response.ok) {
-              // Jika token tidak valid, arahkan ke halaman login
               window.location.href = '/public/user/login.html';
               return;
             }
 
-            const result = await response.json();
-            const username = result.result.username; // Pastikan API mengembalikan `username`
+            const profileResult = await response.json();
+            const username = profileResult.result.username;
 
-            // Tampilkan username dan tombol logout
             navbarAuth.innerHTML = `
-              <span class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</span>
+              <a href="/public/user/profile.html" class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</a>
               <button class="btn-accent hover-up-2" id="logout">Keluar</button>
             `;
 
-            // Tambahkan event listener untuk tombol logout
             document.getElementById('logout').addEventListener('click', () => {
               localStorage.removeItem('token');
               window.location.reload();
             });
           } catch (error) {
-            console.error('Gagal mendapatkan profil:', error);
-            // Jika terjadi error saat fetch, arahkan ke halaman login
+            console.error('Gagal mendapatkan profil user:', error);
             window.location.href = '/public/user/login.html';
           }
         })
         .catch((error) => {
           console.error('Gagal memuat konfigurasi:', error);
-          // Jika terjadi error pada config.json, arahkan ke halaman login
           window.location.href = '/public/user/login.html';
         });
     });
+
+
+
     </script>
   </body>
 </html>

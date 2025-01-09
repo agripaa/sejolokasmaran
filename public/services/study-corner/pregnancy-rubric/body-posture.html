@@ -9,6 +9,16 @@
     />
     <meta name="description" content="Tailwind CSS Saas Landing Page" />
     <meta name="author" content="alithemes.com" />
+
+    <style>
+      iframe {
+        width: 100%;
+        height: 90vh;
+        min-height: 500px;
+        border: none;
+      }
+    </style>
+    
     <link
       rel="icon"
       type="image/png"
@@ -220,45 +230,8 @@
 
       <div class="main">
         <div class="container mx-auto mt-8">
-          <h2 class="text-3xl font-semibold text-center mb-6">Postur Tubuh</h2>
-
-          <!-- Poster Postur Tubuh Angkat Beban -->
-          <div class="w-full lg:w-1/2 px-4 mb-4 mx-auto">
-            <div
-              class="bg-blueGray-50 p-4 rounded-lg shadow-lg flex items-center"
-            >
-              <img
-                src="/public/assets/imgs/POSTUR TUBUH ANGKAT BEBAN.png"
-                alt="Postur Tubuh Angkat Beban"
-                class="object-cover w-full h-full rounded-lg shadow-lg"
-              />
-            </div>
-          </div>
-
-          <!-- Poster Postur Tubuh Duduk -->
-          <div class="w-full lg:w-1/2 px-4 mb-4 mx-auto">
-            <div
-              class="bg-blueGray-50 p-4 rounded-lg shadow-lg flex items-center"
-            >
-              <img
-                src="/public/assets/imgs/POSTUR TUBUH DUDUK.png"
-                alt="Postur Tubuh Duduk"
-                class="object-cover w-full h-full rounded-lg shadow-lg"
-              />
-            </div>
-          </div>
-
-          <!-- Poster Postur Tubuh Tidur -->
-          <div class="w-full lg:w-1/2 px-4 mb-4 mx-auto">
-            <div
-              class="bg-blueGray-50 p-4 rounded-lg shadow-lg flex items-center"
-            >
-              <img
-                src="/public/assets/imgs/POSTUR TUBUH TIDUR.png"
-                alt="Postur Tubuh Tidur"
-                class="object-cover w-full h-full rounded-lg shadow-lg"
-              />
-            </div>
+          <h2 class="text-3xl font-semibold text-center mb-6" id="titleClass">Postur Tubuh</h2>
+          <div class="flex flex-col w-full" id="listSubject">
           </div>
         </div>
       </div>
@@ -564,7 +537,7 @@
     <!--End of Tawk.to Script-->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        fetch('../../../config.json')
+        fetch('/public/config.json')
           .then((response) => response.json())
           .then(async (config) => {
             const apiBaseUrl = config.API_BASE_URL;
@@ -591,10 +564,7 @@
               });
 
               if (!response.ok) {
-                navbarAuth.innerHTML = `
-                  <a class="btn-accent hover-up-2" href="/public/user/login.html">Masuk</a>
-                  <a class="btn-primary hover-up-2" href="/public/user/signup.html">Buat Akun</a>
-                `;
+                window.location.href = '/public/user/login.html';
                 return;
               }
 
@@ -602,7 +572,7 @@
               const username = result.result.username; // Pastikan API mengembalikan `username`
 
               navbarAuth.innerHTML = `
-                <span class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</span>
+                <a href="/public/user/profile.html" class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</a>
                 <button class="btn-accent hover-up-2" id="logout">Keluar</button>
               `;
 
@@ -621,6 +591,105 @@
           })
           .catch((error) => console.error('Gagal memuat konfigurasi:', error));
       });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const classId = urlParams.get('classId'); // Extract classId from URL
+
+        if (classId) {
+          fetchClassDetails(classId);
+        } else {
+          console.error('classId not found in URL.');
+        }
+      });
+
+      function fetchClassDetails(classId) {
+        fetch('/public/config.json')
+          .then((response) => response.json())
+          .then(async (config) => {
+            const apiBaseUrl = config.API_BASE_URL;
+            const apiImageUrl = config.API_IMAGE_URL;
+            const token = localStorage.getItem('token');
+
+            try {
+              const response = await fetch(`${apiBaseUrl}/detail_class/${classId}`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `${token}`,
+                },
+              });
+
+              if (!response.ok) {
+                throw new Error('Failed to fetch class details.');
+              }
+
+              const result = await response.json();
+              renderClassDetails(result, apiImageUrl);
+            } catch (error) {
+              console.error('Error fetching class details:', error);
+            }
+          });
+      }
+
+      function renderClassDetails(classDetails, apiImageUrl) {
+        const data = classDetails.result;
+
+
+        const titleElement = document.getElementById('titleClass');
+        const title = data.ListClass.title;
+        titleElement.innerHTML = `${title}`;
+
+        const contentContainer = document.getElementById('listSubject');
+        contentContainer.innerHTML = '';
+
+        data.Subjects.forEach((subject) => {
+          const filePath = `${apiImageUrl}${subject.sub_lear_path}#toolbar=0`;
+          const fileExtension = subject.sub_lear_path.split('.').pop().toLowerCase();
+
+          let contentHTML = '';
+
+          if (['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension)) {
+            contentHTML = `
+              <div class="flex flex-col w-full">
+                <div class="w-full lg:w-1/2 px-4 mb-4 mx-auto">
+                  <div class="bg-blueGray-50 p-4 rounded-lg shadow-lg">
+                    <img
+                      src="${filePath}"
+                      alt="${subject.sub_lear_path.split('/').pop()}"
+                      class="object-cover w-full h-auto rounded-lg shadow-lg"
+                    />
+                  </div>
+                </div>
+              </div>
+            `;
+          } else if (fileExtension === 'pdf') {
+            contentHTML = `
+              <div class="flex flex-col w-full">
+                <div class="w-full lg:w-3/4 px-4 mb-4 mx-auto">
+                  <div class="bg-blueGray-50 p-4 rounded-lg shadow-lg">
+                    <iframe
+                      src="${filePath}"
+                      class="rounded-lg shadow-lg"
+                      style="width: 100%; height: 90vh; border: none;"
+                    ></iframe>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+
+          contentContainer.insertAdjacentHTML('beforeend', contentHTML);
+        });
+      }
+
+      function adjustIframeHeight(iframe) {
+        // Adjust iframe height to the content
+        iframe.style.height = `${window.innerHeight * 0.9}px`; // 90% of viewport height
+      }
+
+
+
     </script>
   </body>
 </html>

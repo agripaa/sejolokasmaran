@@ -1,8 +1,52 @@
 const RelationType = require('../models/RelationType');
+const { Sequelize } = require('sequelize');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
 module.exports = {
+    getUsers: async function(req, res) {
+        try {
+            const users = await User.findAll();
+
+            res.status(200).json({status: 200, result: users});
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Error updating user", details: error.message });
+        }
+    },
+    getMonthlyUserCount: async function (req, res) {
+        const { year } = req.query;
+
+        try {
+            const startDate = `${year}-01-01`;
+            const endDate = `${year}-12-31`;
+
+            const monthlyData = await User.findAll({
+                attributes: [
+                    [Sequelize.fn('MONTH', Sequelize.col('createdAt')), 'month'],
+                    [Sequelize.fn('COUNT', '*'), 'count']
+                ],
+                where: {
+                    createdAt: {
+                        [Sequelize.Op.between]: [startDate, endDate]
+                    }
+                },
+                group: [Sequelize.fn('MONTH', Sequelize.col('createdAt'))],
+                order: [[Sequelize.fn('MONTH', Sequelize.col('createdAt')), 'ASC']]
+            });
+
+            const monthlyCounts = Array(12).fill(0);
+            monthlyData.forEach(item => {
+                const monthIndex = item.dataValues.month - 1; 
+                monthlyCounts[monthIndex] = item.dataValues.count;
+            });
+
+            res.status(200).json({ status: 200, data: monthlyCounts });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Error fetching monthly user count", details: error.message });
+        }
+    },
     updateUsers: async function (req, res) {
         const { userId } = req;
         const { 

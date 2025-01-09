@@ -20,13 +20,15 @@ const Checked = require('./Checked');
 const News = require('./News');
 const NewsContent = require('./NewsContent');
 const Author = require('./Author');
+const CategoryJournal = require('./CategoryJournal');
+const EmailLog = require('./EmailLog');
 
-// db.sync({ alter: true })
-//   .then(() => {
-//     console.log('Database synchronized');
-//   })
-//   .catch((err) => {
-//     console.error('Error synchronizing database:', err);
-// });
+db.sync({ alter: true })
+  .then(() => {
+    console.log('Database synchronized');
+  })
+  .catch((err) => {
+    console.error('Error synchronizing database:', err);
+});
 
 module.exports = db;

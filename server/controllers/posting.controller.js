@@ -2,13 +2,13 @@ const Posting = require('../models/Posting');
 const User = require('../models/User');
 const path = require('path');
 const fs = require('fs');
-const { where } = require('sequelize');
+const Likes = require('../models/Likes');
 
 module.exports = {
     getAllPostings: async function (req, res) {
         try {
             const postings = await Posting.findAll({
-                include: [{ model: User, attributes: ['username', 'email'] }],
+                include: [{ model: User, attributes: ['username', 'email'] }, Likes],
             });
 
             if (postings.length === 0) {
@@ -85,67 +85,43 @@ module.exports = {
     createPosting: async function (req, res) {
         const { title, desc } = req.body;
         const { userId } = req;
-
-        if(req.files) {
-            if (!req.files.img_path) {
-                return res.status(400).json({ status: 400, msg: 'Image file is required.' });
-            }
-
-            const imageFile = req.files.img_path;
     
-            const allowedExtensions = ['.jpg', '.jpeg', '.png'];
-            const fileExtension = path.extname(imageFile.name).toLowerCase();
-            if (!allowedExtensions.includes(fileExtension)) {
-                return res.status(400).json({ status: 400, msg: 'Invalid file type. Only JPG and PNG are allowed.' });
-            }
-    
-            const uploadPath = path.join(__dirname, '../public/uploads/', imageFile.name);
-
-            try {
-                imageFile.mv(uploadPath, async (err) => {
-                    if (err) {
-                        console.error(err);
-                        return res.status(500).json({ status: 500, msg: 'Error uploading file.' });
-                    }
-    
-                    const posting = await Posting.create({
-                        title,
-                        desc,
-                        img_path: `/uploads/${imageFile.name}`,
-                        userId,
-                    });
-    
-                    res.status(201).json({
-                        status: 201,
-                        msg: 'Posting created successfully.',
-                        result: posting,
-                    });
-                });
-            } catch (error) {
-                console.error(error);
-                res.status(500).json({ error: 'Error creating posting', details: error });
-            }
-        }
-
         try {
+            let imgPath = null;
+    
+            if (req.files && req.files.img_path) {
+                const imageFile = req.files.img_path;
+                const allowedExtensions = ['.jpg', '.jpeg', '.png'];
+                const fileExtension = path.extname(imageFile.name).toLowerCase();
+    
+                if (!allowedExtensions.includes(fileExtension)) {
+                    return res.status(400).json({ status: 400, msg: 'Invalid file type. Only JPG and PNG are allowed.' });
+                }
+    
+                const uploadPath = path.join(__dirname, '../public/uploads/', imageFile.name);
+    
+                await imageFile.mv(uploadPath);
+                imgPath = `/uploads/${imageFile.name}`;
+            }
+    
             const posting = await Posting.create({
                 title,
                 desc,
-                img_path: null,
+                img_path: imgPath,
                 userId,
             });
-
-            res.status(201).json({
+    
+            return res.status(201).json({
                 status: 201,
                 msg: 'Posting created successfully.',
                 result: posting,
             });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: 'Error creating posting', details: error });
+            return res.status(500).json({ error: 'Error creating posting', details: error });
         }
-
     },
+    
 
     updatePosting: async function (req, res) {
         const { id } = req.params;

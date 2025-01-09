@@ -14,6 +14,7 @@ const User = db.define('User', {
     phone: { type: DataTypes.STRING(25), allowNull: true },
     address: { type: DataTypes.STRING(255), allowNull: true },
     date_birth: { type: DataTypes.DATE, allowNull: true },
+    born_date: {type: DataTypes.DATE, allowNull: true},
     role_id: { type: DataTypes.INTEGER, allowNull: false },
     relation_types: { type: DataTypes.INTEGER, allowNull: false },
 }, { freezeTableName: true });

@@ -1,177 +1,198 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const uploadJournalBtn = document.getElementById("uploadJournalBtn");
-    const uploadJournalModal = document.getElementById("uploadJournalModal");
-    const closeModal = uploadJournalModal.querySelector(".close");
-    const form = document.getElementById("uploadJournalForm");
-    const tbody = document.querySelector("#journal-table tbody");
-    const pregnancySelect = document.getElementById("pregnancy_journal_id");
-    const token = localStorage.getItem("token");
-    let isEdit = false;
-    let editId = null;
-  
-    fetch('/public/config.json')
-      .then(response => response.json())
-      .then(config => {
-        const baseUrl = config.API_BASE_URL;
-  
-        uploadJournalBtn.addEventListener("click", () => {
-          form.reset();
-          isEdit = false;
-          loadPregnancyCategories();
-          uploadJournalModal.classList.remove("hidden");
-        });
-  
-        closeModal.addEventListener("click", () => {
-          uploadJournalModal.classList.add("hidden");
-        });
-  
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const formData = new FormData(form);
-          const payload = Object.fromEntries(formData);
-  
-          try {
-            const url = isEdit
-              ? `${baseUrl}/list_journal/${editId}`
-              : `${baseUrl}/list_journal`;
-            const method = isEdit ? "PATCH" : "POST";
-  
-            const response = await fetch(url, {
-              method,
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": token,
-              },
-              body: JSON.stringify(payload),
-            });
-  
-            const data = await response.json();
-            if (data.status === 200) {
-              alert(
-                isEdit
-                  ? "Jurnal berhasil diperbarui!"
-                  : "Jurnal berhasil ditambahkan!"
-              );
-              fetchListJournal();
-              uploadJournalModal.classList.add("hidden");
-            } else {
-              alert(data.msg);
+  const uploadJournalBtn = document.getElementById("uploadJournalBtn");
+  const tbody = document.querySelector("#journal-table tbody");
+  const token = localStorage.getItem("token");
+  let isEdit = false;
+  let editId = null;
+
+  fetch("/public/config.json")
+    .then((response) => response.json())
+    .then((config) => {
+      const baseUrl = config.API_BASE_URL;
+
+      uploadJournalBtn.addEventListener("click", () => {
+        isEdit = false;
+        showJournalModal(); // Panggil modal SweetAlert2
+      });
+
+      async function fetchListJournal() {
+        try {
+          const response = await fetch(`${baseUrl}/list_journal`, {
+            headers: {
+              Authorization: token,
+            },
+          });
+          const data = await response.json();
+          console.log({data})
+
+          tbody.innerHTML = "";
+          data.result.forEach((item, index) => {
+            const row = `
+              <tr>
+                <td>${index + 1}</td>
+                <td>${item.journal}</td>
+                <td>${item.is_required ? "Ya" : "Tidak"}</td>
+                <td>${item.PregnancyJournal?.category_jurnal}</td>
+                <td>
+                  <button class="btn btn-edit" data-id="${item.id}">Edit</button>
+                  <button class="btn btn-danger" data-id="${item.id}">Delete</button>
+                </td>
+              </tr>
+            `;
+            tbody.innerHTML += row;
+          });
+
+          document.querySelectorAll(".btn-edit").forEach((button) =>
+            button.addEventListener("click", (e) => handleEdit(e, data.result))
+          );
+
+          document.querySelectorAll(".btn-danger").forEach((button) =>
+            button.addEventListener("click", (e) => handleDelete(e))
+          );
+        } catch (error) {
+          console.error("Error fetching list journals:", error);
+        }
+      }
+
+      async function showJournalModal(data = null) {
+        const { value: formValues } = await Swal.fire({
+          title: isEdit ? "Edit Jurnal" : "Tambah Jurnal",
+          html: `
+            <label for="journal">Nama Jurnal:</label>
+            <input type="text" id="journal" class="swal2-input" value="${data?.journal || ""}">
+            <label for="is_required">Wajib:</label>
+            <select id="is_required" class="swal2-select">
+              <option value="true" ${data?.is_required === true ? "selected" : ""}>Ya</option>
+              <option value="false" ${data?.is_required === false ? "selected" : ""}>Tidak</option>
+            </select>
+            <label for="pregnancy_journal_id">Kategori Kehamilan:</label>
+            <select id="pregnancy_journal_id" class="swal2-select"></select>
+          `,
+          focusConfirm: false,
+          showCancelButton: true,
+          confirmButtonText: "Simpan",
+          preConfirm: () => {
+            const popup = Swal.getPopup();
+            const journal = popup.querySelector("#journal");
+            const is_required = popup.querySelector("#is_required");
+            const pregnancy_journal_id = popup.querySelector("#pregnancy_journal_id");
+      
+            if (!journal.value.trim()) {
+              Swal.showValidationMessage("Nama Jurnal tidak boleh kosong!");
+              return false;
             }
-          } catch (error) {
-            console.error("Error saving journal:", error);
-          }
-        });
-  
-        async function fetchListJournal() {
-          try {
-            const response = await fetch(`${baseUrl}/list_journal`, {
-              headers: {
-                "Authorization": token,
-              },
-            });
-            const data = await response.json();
-            console.log({data: data.result})
-  
-            tbody.innerHTML = "";
-            data.result.forEach((item, index) => {
-              const row = `
-                <tr>
-                  <td>${index + 1}</td>
-                  <td>${item.journal}</td>
-                  <td>${item.is_required ? "Ya" : "Tidak"}</td>
-                  <td>${item.PregnancyJournal.category_jurnal}</td>
-                  <td>
-                    <button class="edit-btn" data-id="${item.id}">Edit</button>
-                    <button class="delete-btn" data-id="${item.id}">Delete</button>
-                  </td>
-                </tr>
-              `;
-              tbody.innerHTML += row;
-            });
-  
-            // Tambahkan event listener untuk tombol Edit dan Delete
-            const editButtons = document.querySelectorAll(".edit-btn");
-            const deleteButtons = document.querySelectorAll(".delete-btn");
-  
-            editButtons.forEach((button) =>
-              button.addEventListener("click", (e) => handleEdit(e, data.result))
-            );
-  
-            deleteButtons.forEach((button) =>
-              button.addEventListener("click", (e) => handleDelete(e))
-            );
-          } catch (error) {
-            console.error("Error fetching list journals:", error);
-          }
-        }
-  
-        async function handleEdit(e, data) {
-          const id = e.target.dataset.id;
-          const journal = data.find((item) => item.id == id);
-          loadPregnancyCategories();
-  
-          if (journal) {
-            isEdit = true;
-            editId = id;
-            document.getElementById("journal").value = journal.journal;
-            document.getElementById("is_required").value = journal.is_required;
-            document.getElementById("pregnancy_journal_id").value = journal.pregnancy_journal_id;
-            uploadJournalModal.classList.remove("hidden");
-          }
-        }
-  
-        async function handleDelete(e) {
-          const id = e.target.dataset.id;
-  
-          if (confirm("Apakah Anda yakin ingin menghapus jurnal ini?")) {
+      
+            return {
+              journal: journal.value.trim(),
+              is_required: is_required.value,
+              pregnancy_journal_id: pregnancy_journal_id.value,
+            };
+          },
+          didOpen: async () => {
+            const popup = Swal.getPopup();
+            const selectElement = popup.querySelector("#pregnancy_journal_id");
             try {
-              const response = await fetch(`${baseUrl}/list_journal/${id}`, {
-                method: "DELETE",
-                headers: {
-                  "Authorization": token,
-                },
+              const response = await fetch(`${baseUrl}/journal`, {
+                headers: { Authorization: token },
               });
+              
               const data = await response.json();
-              if (data.status === 200) {
-                alert("Jurnal berhasil dihapus!");
-                fetchListJournal();
+              
+              if (data.result) {
+                selectElement.innerHTML = "";
+                data.result.forEach((category) => {
+                  const option = document.createElement("option");
+                  option.value = category.id;
+                  option.textContent = category.category_jurnal;
+                  selectElement.appendChild(option);
+                });
               } else {
-                alert(data.msg);
+                selectElement.innerHTML = "<option disabled>Tidak ada kategori tersedia</option>";
               }
             } catch (error) {
-              console.error("Error deleting journal:", error);
+              console.error("Error loading pregnancy categories:", error);
             }
-          }
+          },
+        });
+      
+        if (formValues) {
+          saveJournal(formValues);
         }
-  
-        async function loadPregnancyCategories() {
+      }
+      
+      async function saveJournal(payload) {
+        try {
+          const url = isEdit
+            ? `${baseUrl}/list_journal/${editId}`
+            : `${baseUrl}/list_journal`;
+          const method = isEdit ? "PATCH" : "POST";
+
+          const response = await fetch(url, {
+            method,
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: token,
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await response.json();
+          if (data.status === 200 || data.status === 201) {
+            Swal.fire("Berhasil!", isEdit ? "Jurnal diperbarui!" : "Jurnal ditambahkan!", "success");
+            fetchListJournal();
+          } else {
+            Swal.fire("Gagal!", data.msg, "error");
+          }
+        } catch (error) {
+          console.error("Error saving journal:", error);
+        }
+      }
+
+      async function handleEdit(e, data) {
+        const id = e.target.dataset.id;
+        const journal = data.find((item) => item.id == id);
+
+        if (journal) {
+          isEdit = true;
+          editId = id;
+          showJournalModal(journal);
+        }
+      }
+
+      async function handleDelete(e) {
+        const id = e.target.dataset.id;
+
+        const result = await Swal.fire({
+          title: "Hapus Jurnal?",
+          text: "Anda yakin ingin menghapus jurnal ini?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Hapus",
+          cancelButtonText: "Batal",
+        });
+
+        if (result.isConfirmed) {
           try {
-            const response = await fetch(`${baseUrl}/pregnancy_journal`, {
+            const response = await fetch(`${baseUrl}/list_journal/${id}`, {
+              method: "DELETE",
               headers: {
-                "Authorization": token,
+                Authorization: token,
               },
             });
+
             const data = await response.json();
-            pregnancySelect.innerHTML = "";
-            if (data.result && data.result.length > 0) {
-              data.result.forEach((category) => {
-                const option = document.createElement("option");
-                option.value = category.id;
-                option.textContent = category.category_jurnal;
-                pregnancySelect.appendChild(option);
-              });
+            if (data.status === 200) {
+              Swal.fire("Berhasil!", "Jurnal berhasil dihapus.", "success");
+              fetchListJournal();
             } else {
-              const option = document.createElement("option");
-              option.textContent = "Tidak ada kategori tersedia";
-              option.disabled = true;
-              pregnancySelect.appendChild(option);
+              Swal.fire("Gagal!", data.msg, "error");
             }
           } catch (error) {
-            console.error("Error loading pregnancy categories:", error);
+            console.error("Error deleting journal:", error);
           }
         }
-  
-        fetchListJournal();
-      });
-  });
-  
+      }
+    
+      fetchListJournal();
+    });
+});

@@ -5,7 +5,6 @@ const User = require('../models/User');
 const Roles = require('../models/Roles');
 const OtpCode = require('../models/OtpCode');
 const RelationType = require('../models/RelationType');
-const { use } = require('../routes/auth.route');
 require('dotenv').config();
 
 module.exports = {

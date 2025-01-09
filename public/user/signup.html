@@ -211,120 +211,59 @@
         </nav>
       </div>
 
-      <section class="py-12 bg-blueGray-50">
+      <section class="py-12 bg-blueGray-50 min-h-screen flex items-center justify-center">
         <div class="container">
           <div class="flex max-w-md mx-auto flex-col text-center">
-            <div class="mt-12 mb-8 p-8 bg-white rounded shadow">
+            <form id="registerForm" class="mb-8 p-8 bg-white rounded shadow">
               <h4 class="mb-6 text-3xl">Buat Akun Baru</h4>
-              <div
-                class="flex mb-4 px-4 bg-blueGray-50 rounded border border-gray-200"
-              >
+              <div class="mb-4">
                 <input
-                  class="w-full py-4 text-xs placeholder-blueGray-400 font-semibold leading-none bg-blueGray-50 outline-none"
-                  type="email"
+                  id="username"
+                  class="w-full py-4 px-4 text-xs placeholder-blueGray-400 font-semibold leading-none bg-blueGray-50 rounded border border-gray-200 outline-none"
+                  type="text"
                   placeholder="Nama Pengguna"
+                  required
                 />
-                <svg
-                  class="h-6 w-6 ml-4 my-auto text-blueGray-300"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                  ></path>
-                </svg>
               </div>
-              <div
-                class="flex mb-4 px-4 bg-blueGray-50 rounded border border-gray-200"
-              >
+              <div class="mb-4">
                 <input
-                  class="w-full py-4 text-xs placeholder-blueGray-400 font-semibold leading-none bg-blueGray-50 outline-none"
+                  id="email"
+                  class="w-full py-4 px-4 text-xs placeholder-blueGray-400 font-semibold leading-none bg-blueGray-50 rounded border border-gray-200 outline-none"
                   type="email"
                   placeholder="Email"
+                  required
                 />
-                <svg
-                  class="h-6 w-6 ml-4 my-auto text-blueGray-300"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                  ></path>
-                </svg>
               </div>
-              <div
-                class="flex mb-6 px-4 bg-blueGray-50 rounded border border-gray-200"
-              >
+              <div class="mb-4">
                 <input
-                  class="w-full py-4 text-xs placeholder-blueGray-400 font-semibold leading-none bg-blueGray-50 outline-none"
+                  id="password"
+                  class="w-full py-4 px-4 text-xs placeholder-blueGray-400 font-semibold leading-none bg-blueGray-50 rounded border border-gray-200 outline-none"
                   type="password"
-                  placeholder="Masukkan Kata Sandi"
+                  placeholder="Kata Sandi"
+                  required
                 />
-                <button class="ml-4">
-                  <svg
-                    class="h-6 w-6 my-auto text-blueGray-300"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    ></path>
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                    ></path>
-                  </svg>
-                </button>
               </div>
-              <div
-                class="flex mb-6 px-4 bg-blueGray-50 rounded border border-gray-200"
-              >
+              <div class="mb-4">
                 <input
-                  class="w-full py-4 text-xs placeholder-blueGray-400 font-semibold leading-none bg-blueGray-50 outline-none"
+                  id="confPassword"
+                  class="w-full py-4 px-4 text-xs placeholder-blueGray-400 font-semibold leading-none bg-blueGray-50 rounded border border-gray-200 outline-none"
                   type="password"
                   placeholder="Konfirmasi Kata Sandi"
+                  required
                 />
-                <button class="ml-4">
-                  <svg
-                    class="h-6 w-6 my-auto text-blueGray-300"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    ></path>
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                    ></path>
-                  </svg>
-                </button>
               </div>
-
+              <div class="mb-6">
+                <select
+                  id="relationTypes"
+                  class="w-full py-4 px-4 text-xs font-semibold bg-blueGray-50 rounded border border-gray-200"
+                  required
+                >
+                  <option value="">Pilih Hubungan</option>
+                  <option value="1">Ibu</option>
+                  <option value="2">Ayah</option>
+                  <option value="3">Kerabat</option>
+                </select>
+              </div>
               <div class="float-left mb-8">
                 <label class="inline-flex text-xs">
                   <input type="checkbox" class="form-checkbox" checked />
@@ -343,33 +282,10 @@
 
               <button
                 class="transition duration-300 ease-in-out transform hover:-translate-y-1 block w-full p-4 text-center text-xs text-white font-semibold leading-none bg-blue-500 hover:bg-blue-700 rounded"
+                type="submit"
               >
                 Daftar Sekarang
               </button>
-              <p
-                class="my-6 text-xs text-blueGray-400 text-center font-semibold"
-              >
-                atau lanjutkan dengan
-              </p>
-              <button
-                class="transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center w-full px-4 py-3 mb-2 text-xs text-blueGray-500 font-semibold leading-none border border-gray-200 hover:bg-blueGray-50 rounded"
-              >
-                <img
-                  class="h-6 pr-10"
-                  src="/public/assets/imgs/logos/facebook-sign.svg"
-                />
-                <span>Daftar dengan Facebook</span>
-              </button>
-              <button
-                class="transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center px-4 py-3 w-full text-xs text-blueGray-500 font-semibold leading-none border border-gray-200 hover:bg-blueGray-50 rounded"
-              >
-                <img
-                  class="h-6 pr-10"
-                  src="/public/assets/imgs/logos/google-sign.svg"
-                />
-                <span>Daftar dengan Google</span>
-              </button>
-
               <div class="w-full mt-12 mx-auto text-center">
                 <p class="text-sm">
                   Sudah punya akun?
@@ -380,7 +296,7 @@
                   >
                 </p>
               </div>
-            </div>
+            </form>
             <div>
               <p class="text-xs text-blueGray-400 text-center">
                 <a class="underline hover:text-blueGray-500" href="#"
@@ -691,14 +607,6 @@
 
             const navbarAuth = document.getElementById('navbar-auth');
 
-            if (!token) {
-              navbarAuth.innerHTML = `
-                <a class="btn-accent hover-up-2" href="/public/user/login.html">Masuk</a>
-                <a class="btn-primary hover-up-2" href="/public/user/signup.html">Buat Akun</a>
-              `;
-              return;
-            }
-
             try {
               const response = await fetch(profilUrl, {
                 method: 'GET',
@@ -708,23 +616,14 @@
                 },
               });
 
-              if (!response.ok) {
-                navbarAuth.innerHTML = `
-                  <a class="btn-accent hover-up-2" href="/public/user/login.html">Masuk</a>
-                  <a class="btn-primary hover-up-2" href="/public/user/signup.html">Buat Akun</a>
-                `;
-                return;
-              }
-
               const result = await response.json();
-              const username = result.result.username; // Pastikan API mengembalikan `username`
+              const username = result.result.username; 
 
               navbarAuth.innerHTML = `
-                <span class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</span>
+                <a href="/public/user/profile.html" class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</a>
                 <button class="btn-accent hover-up-2" id="logout">Keluar</button>
               `;
 
-              // Tambahkan event listener untuk tombol logout
               document.getElementById('logout').addEventListener('click', () => {
                 localStorage.removeItem('token');
                 window.location.reload();
@@ -740,6 +639,87 @@
           .catch((error) => console.error('Gagal memuat konfigurasi:', error));
       });
 
+      document.getElementById('registerForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confPassword = document.getElementById('confPassword').value;
+        const relationTypes = document.getElementById('relationTypes').value;
+
+        fetch('/public/config.json')
+        .then(response => response.json())
+        .then(async(config) => {
+          const apiBaseUrl = config.API_BASE_URL;
+          const registerUrl = `${apiBaseUrl}/auth/register`
+
+          if (!username || !email || !password || !confPassword || !relationTypes) {
+            alert('Semua kolom wajib diisi.');
+            return;
+          }
+
+          // Helper function to set an item with timestamp in localStorage
+          function setItemWithExpiry(key, value, expiryInMs) {
+              const now = new Date();
+              const item = {
+                  value: value,
+                  expiry: now.getTime() + expiryInMs, // Expiry time in milliseconds
+              };
+              localStorage.setItem(key, JSON.stringify(item));
+          }
+
+          // Helper function to get an item from localStorage and check expiry
+          function getItemWithExpiry(key) {
+              const itemStr = localStorage.getItem(key);
+              if (!itemStr) {
+                  return null;
+              }
+              const item = JSON.parse(itemStr);
+              const now = new Date();
+              if (now.getTime() > item.expiry) {
+                  // If the item is expired, remove it from localStorage
+                  localStorage.removeItem(key);
+                  return null;
+              }
+              return item.value;
+          }
+
+          localStorage.setItem('userEmail', email); // Ganti dengan:
+          setItemWithExpiry('userEmail', email, 2 * 60 * 1000); // 2 menit (120.000 ms)
+
+          const payload = {
+            username,
+            email,
+            password,
+            confPassword,
+            relation_types: relationTypes,
+          };
+
+          try {
+            const response = await fetch(registerUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(payload),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+              alert(result.msg || 'Registrasi gagal.');
+              return;
+            }
+
+            alert('Registrasi berhasil! Periksa email Anda untuk OTP.');
+            window.location.href = '/public/user/otp.html';
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan, silakan coba lagi.');
+          }
+        })
+      });
     </script>
   </body>
 </html>

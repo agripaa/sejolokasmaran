@@ -3,6 +3,7 @@ const LearnList = require('../models/LearnList');
 const DetailClass = require('../models/DetailClass');
 const path = require('path');
 const fs = require('fs');
+const { Op } = require('sequelize');
 
 module.exports = {
     getAllListClasses: async function (req, res) {
@@ -11,9 +12,34 @@ module.exports = {
                 include: [
                     {
                         model: LearnList,
-                        attributes: ['title'],
+                        attributes: ['title', 'desc'],
                     },
                 ],
+            });
+
+            if (listClasses.length === 0) {
+                return res.status(404).json({ status: 404, msg: "No list classes found." });
+            }
+
+            res.status(200).json({ status: 200, result: listClasses });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Error fetching list classes', details: error });
+        }
+    },
+
+    getListClassById: async function (req, res) {
+        const { id } = req.params;
+
+        try {
+            const listClasses = await ListClass.findAll({
+                include: [
+                    {
+                        model: LearnList,
+                        attributes: ['title', 'desc'],
+                    },
+                ],
+                where: { learn_list_id: id }
             });
 
             if (listClasses.length === 0) {
@@ -33,7 +59,6 @@ module.exports = {
             const classesWithDetails = await DetailClass.findAll({
                 attributes: ['list_class_id'],
             });
-
             const usedClassIds = classesWithDetails.map((item) => item.list_class_id);
 
             const availableClasses = await ListClass.findAll({
@@ -48,7 +73,7 @@ module.exports = {
     },
 
     createListClass: async function (req, res) {
-        const { title, learn_list_id } = req.body;
+        const { title, desc, learn_list_id } = req.body;
 
         if (!req.files || !req.files.img_path) {
             return res.status(400).json({ status: 400, msg: "Image file is required." });
@@ -79,9 +104,10 @@ module.exports = {
                 }
 
                 const listClass = await ListClass.create({
-                    title,
                     img_path: `/uploads/${imageFile.name}`,
                     learn_list_id,
+                    title, 
+                    desc
                 });
 
                 res.status(201).json({
@@ -97,7 +123,7 @@ module.exports = {
     },
     updateListClass: async function (req, res) {
         const { id } = req.params;
-        const { title, learn_list_id } = req.body;
+        const { title, desc, learn_list_id } = req.body;
     
         const learn_list = await LearnList.findOne({where: {id: learn_list_id}});
         if(!learn_list) return res.status(404).json({status: 404, msg: "Learn List is not found!"});
@@ -140,7 +166,7 @@ module.exports = {
             }
 
             await ListClass.update(
-                { title, img_path: newImagePath, learn_list_id },
+                { title, desc, img_path: newImagePath, learn_list_id },
                 { where: { id } }
             );
     

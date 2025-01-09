@@ -6,7 +6,6 @@ const uploadImage = (req, res, next) => {
     }
 
     const image = req.files.image;
-    console.log({image})
 
     const allowedExtensions = ['.jpg', '.jpeg', '.png'];
     const fileExtension = path.extname(image.name).toLowerCase();

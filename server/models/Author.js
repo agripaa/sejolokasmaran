@@ -6,6 +6,7 @@ const Author = db.define('Author', {
     name: { type: DataTypes.STRING(125), allowNull: false },
     position: { type: DataTypes.STRING(125), allowNull: false },
     desc: { type: DataTypes.TEXT, allowNull: true },
+    img_author: { type: DataTypes.STRING(255), allowNull: true}
 }, { freezeTableName: true });
 
 module.exports = Author;

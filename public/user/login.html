@@ -208,7 +208,7 @@
         </nav>
       </div>
 
-      <section class="relative pb-20">
+      <section class="relative pb-20 min-h-screen flex items-center">
         <div class="hidden lg:block absolute inset-0 w-1/2 ml-auto">
           <div
             class="flex items-center h-full wow animate__animated animate__fadeIn animated"
@@ -222,7 +222,7 @@
           </div>
         </div>
         <div class="container">
-          <div class="relative flex flex-wrap pt-12">
+          <div class="relative flex flex-wrap">
             <div class="lg:flex lg:flex-col w-full lg:w-1/2 py-6 lg:pr-20">
               <div
                 class="w-full max-w-lg mx-auto lg:mx-0 my-auto wow animate__animated animate__fadeIn animated"
@@ -313,31 +313,6 @@
                   id="login"
                 >
                   Masuk
-                </button>
-                <p
-                  class="my-6 text-xs text-blueGray-400 text-center font-semibold"
-                >
-                  atau lanjutkan dengan
-                </p>
-                <button
-                  class="transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center w-full px-4 py-3 mb-2 text-xs text-blueGray-500 font-semibold leading-none border border-gray-200 hover:bg-blueGray-50 rounded"
-                  href="#"
-                >
-                  <img
-                    class="h-6 pr-10"
-                    src="/public/assets/imgs/logos/facebook-sign.svg"
-                  />
-                  <span>Masuk dengan Facebook</span>
-                </button>
-                <button
-                  class="transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center px-4 py-3 w-full text-xs text-blueGray-500 font-semibold leading-none border border-gray-200 hover:bg-blueGray-50 rounded"
-                  href="#"
-                >
-                  <img
-                    class="h-6 pr-10"
-                    src="/public/assets/imgs/logos/google-sign.svg"
-                  />
-                  <span>Masuk dengan Google</span>
                 </button>
               </div>
 
@@ -681,7 +656,7 @@
               const username = result.result.username; // Pastikan API mengembalikan `username`
 
               navbarAuth.innerHTML = `
-                <span class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</span>
+                <a href="/public/user/profile.html" class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</a>
                 <button class="btn-accent hover-up-2" id="logout">Keluar</button>
               `;
 

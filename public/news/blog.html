@@ -215,34 +215,7 @@
             Berita dan Artikel
           </h2>
           <div class="flex flex-wrap -mx-3">
-            <div
-              class="w-full lg:w-2/3 px-3 mb-12 wow animate__animated animate__fadeInUp animated hover-up-5"
-              data-wow-delay=".3s"
-            >
-              <a href="weekly-activities.html">
-                <img
-                  class="h-80 w-full object-cover rounded"
-                  src="/public/assets/imgs/kegiatan-para-bidan.png"
-                  alt=""
-                />
-                <p class="mt-6 text-sm text-blue-400">
-                  <span
-                    class="inline-block py-1 px-3 text-xs font-semibold bg-blue-100 text-blue-600 rounded-xl mr-3"
-                    >Weekly activities</span
-                  >
-                  <span class="text-blueGray-400 text-xs">10 Nov, 2024</span>
-                </p>
-                <h3 class="my-2 text-2xl font-bold font-heading">
-                  Kegiatan Minggu Ini: Asuhan Tumbuh Kembang Bayi dan Balita
-                  oleh Para Bidan
-                </h3>
-                <p class="text-blueGray-400 leading-loose">
-                  Minggu ini, para bidan kami telah melaksanakan kegiatan
-                  penting dalam mendukung tumbuh kembang bayi dan balita.
-                  Kegiatan ini bertujuan...
-                </p>
-              </a>
-            </div>
+            Not Have any News Here
           </div>
         </div>
       </section>
@@ -537,6 +510,7 @@
           .then((response) => response.json())
           .then(async (config) => {
             const apiBaseUrl = config.API_BASE_URL;
+            const apiImgUrl = config.API_IMAGE_URL;
             const profilUrl = `${apiBaseUrl}/auth/profile`;
             const token = localStorage.getItem('token');
 
@@ -571,7 +545,7 @@
               const username = result.result.username; // Pastikan API mengembalikan `username`
 
               navbarAuth.innerHTML = `
-                <span class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</span>
+                <a href="/public/user/profile.html" class="text-sm font-semibold text-blueGray-600 mr-4">Hello, ${username}!</a>
                 <button class="btn-accent hover-up-2" id="logout">Keluar</button>
               `;
 
@@ -590,6 +564,73 @@
           })
           .catch((error) => console.error('Gagal memuat konfigurasi:', error));
       });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        fetch('../config.json')
+          .then((response) => response.json())
+          .then(async (config) => {
+            const apiBaseUrl = config.API_BASE_URL;
+            const apiImgUrl = config.API_IMAGE_URL;
+            const newsUrl = `${apiBaseUrl}/news`;
+
+            try {
+              // Memuat daftar berita
+              const response = await fetch(newsUrl, {
+                method: 'GET',
+              });
+
+              if (!response.ok) {
+                throw new Error('Gagal memuat daftar berita.');
+              }
+
+              const { result: newsList } = await response.json();
+              renderNewsList(newsList);
+            } catch (error) {
+              console.error('Gagal memuat berita:', error);
+            }
+
+            function renderNewsList(newsList) {
+              const newsContainer = document.querySelector('.flex.flex-wrap');
+
+              // Kosongkan kontainer berita
+              newsContainer.innerHTML = '';
+
+              // Loop untuk setiap berita
+              newsList.forEach((news) => {
+                const imgNews = `${apiImgUrl}/${news.img_news}`
+                const newsCard = `
+                  <div class="w-full lg:w-2/3 px-3 mb-12 wow animate__animated animate__fadeInUp animated hover-up-5">
+                    <a href="/public/news/details.html?id=${news.id}">
+                      <img
+                        class="h-80 w-full object-cover rounded"
+                        src="${news.img_news ? `${imgNews}` : '/public/assets/imgs/default-news-image.png'}"
+                        alt="${news.title}"
+                      />
+                      <p class="mt-6 text-sm text-blue-400">
+                        <span
+                          class="inline-block py-1 px-3 text-xs font-semibold bg-blue-100 text-blue-600 rounded-xl mr-3"
+                        >
+                          ${news.category}
+                        </span>
+                        <span class="text-blueGray-400 text-xs">${new Date(news.release).toLocaleDateString()}</span>
+                      </p>
+                      <h3 class="my-2 text-2xl font-bold font-heading">${news.title}</h3>
+                      <p class="text-blueGray-400 leading-loose">${truncateText(news.sub_title || '', 100)}</p>
+                    </a>
+                  </div>
+                `;
+
+                newsContainer.innerHTML += newsCard;
+              });
+            }
+
+            // Fungsi untuk memotong teks yang terlalu panjang
+            function truncateText(text, maxLength) {
+              return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+            }
+          })
+
+      })
     </script>
   </body>
 </html>

@@ -4,6 +4,9 @@ const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 const path = require('path');
 const routes = require('./routes/routes');
+const { Op } = require('sequelize')
+const { scheduleEmailsForUser } = require('./controllers/emailSender.controller');
+const User = require('./models/User'); 
 
 require('dotenv').config();
 require('./models/migration');
@@ -15,6 +18,22 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+(async () => {
+    try {
+        const users = await User.findAll({
+            where: { born_date: { [Op.ne]: null } } 
+        });
+
+        users.forEach(user => {
+            scheduleEmailsForUser(user.born_date, user.id, user.email);
+        });
+
+        console.log('Scheduler dijalankan untuk semua pengguna.');
+    } catch (error) {
+        console.error('Gagal menjalankan scheduler:', error.message);
+    }
+})();
 
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
