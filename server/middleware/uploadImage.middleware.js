@@ -1,10 +1,6 @@
 const path = require('path');
 
 const uploadImage = (req, res, next) => {
-    if (!req.files || !req.files.image) {
-        return res.status(400).json({ status: 400, msg: "Image file is required." });
-    }
-
     const image = req.files.image;
 
     const allowedExtensions = ['.jpg', '.jpeg', '.png'];
